@@ -2,7 +2,7 @@
 /*
  * login.php
  * 
- * Copyright 2017 -=RaM-= <whoram@protonmail.com>
+ * Copyright 2017 -=RaM-= <psalm62@protonmail.com>
  * 
  * 
  * Форма авторизации пользователя в системе.

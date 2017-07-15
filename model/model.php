@@ -2,7 +2,7 @@
 /*
  * model.php
  * 
- * Copyright 2017 -=RaM-= <whoram@protonmail.com>
+ * Copyright 2017 -=RaM-= <psalm62@protonmail.com>
  * 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -64,14 +64,15 @@ class model
 			return false;
 		}
 	}
-	public function regUser($login, $pass)
+	public function regUser($login, $pass, $name)
 	{
 		$stmt=$this->dbh->prepare(
-			'INSERT INTO `reg_user`(`login`,`pass`)
-			VALUES (:login, :pass)'
+			'INSERT INTO `reg_user`(`login`,`pass`,`name`)
+			VALUES (:login, :pass, :name)'
 		);
 		$stmt->bindValue(':login', $login);
 		$stmt->bindValue(':pass', $pass);
+		$stmt->bindValue(':name', $name);
 		$res=$stmt->execute();
 		
 		return $res;

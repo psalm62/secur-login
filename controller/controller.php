@@ -2,7 +2,7 @@
 /*
  * controller.php
  * 
- * Copyright 2017 -=RaM-= <whoram@protonmail.com>
+ * Copyright 2017 -=RaM-= <psalm62@protonmail.com>
  * 
  * $dbA, $dbClobalKey, $dbGlobalIv - глобальные, продумать как избавиться от их глобализации...
  * 
@@ -72,8 +72,9 @@ class controller
 		
 		$login=filter_input(INPUT_POST, 'login', FILTER_SANITIZE_SPECIAL_CHARS);
 		$passw=filter_input(INPUT_POST, 'pass1', FILTER_SANITIZE_SPECIAL_CHARS);
+		$fio=filter_input(INPUT_POST, 'fio', FILTER_SANITIZE_SPECIAL_CHARS);
 		
-		if(empty($login) || empty($passw))
+		if(empty($login) || empty($passw) || empty($fio))
 		{
 			$_SESSION['count']=2;
 			header('Location: ./?page=reg');
@@ -90,7 +91,7 @@ class controller
 		$c_passw=password_hash($passw, PASSWORD_BCRYPT, ['cost'=>12]);
 		
 		$model=model::getInstance();
-		$res=$model->regUser($c_login, $c_passw);
+		$res=$model->regUser($c_login, $c_passw, $fio);
 		if($res!==false)
 		{
 			session_destroy();

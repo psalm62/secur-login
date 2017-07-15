@@ -2,7 +2,7 @@
 /*
  * reg.php
  * 
- * Copyright 2017 -=RaM-= <whoram@protonmail.com>
+ * Copyright 2017 -=RaM-= <psalm62@protonmail.com>
  * 
  * 
  * Форма регистрации пользователя в системе.
@@ -32,7 +32,7 @@ class reg extends view
 		<form method='POST'>
 		<input type='hidden' name='nameCtr' value='regUser'>
 		<input type='text' name='login' placeholder='Введите логин' required>
-		<input type='email' name='email' placeholder='Введите email' >
+		<input type='text' name='fio' placeholder='Введите имя' required>
 		<input type='password' name='pass1' placeholder='Введите пароль' required>
 		<input type='password' name='pass2' placeholder='Повторите пароль' required>
 		<input type=submit>
