@@ -7,7 +7,7 @@
  * $dbA, $dbClobalKey, $dbGlobalIv - глобальные, продумать как избавиться от их глобализации...
  * 
  */
-session_start();
+//session_start();
 
 class controller
 {
@@ -38,6 +38,11 @@ class controller
 		{
 			$page='login';
 		}
+		if($page=='logout')
+		{
+			session_destroy();
+			header('Location:./');
+		}
 		$view=$this->makeView($page);
 		$view->content();
 	}
@@ -61,9 +66,11 @@ class controller
 		}
 		else
 		{
-			session_destroy();
-			echo "Здравствуйте <h2>$login</h2>";
-			var_dump($_SESSION);
+			session_unset('count');
+			$_SESSION['id']=$row['id'];
+			$_SESSION['name']=$row['name'];
+			$_SESSION['type']=$row['type'];			
+			header("Location: ./?page={$_SESSION['type']}");
 		}
 	}
 	public function regUser()

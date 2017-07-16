@@ -24,6 +24,10 @@
 
 class user extends view
 {
+	public function title()
+	{
+		echo "<title>Страница пользователя</title>";
+	}
 	public function all()
 	{
 		echo "<h1>Страница пользователя</h1>";

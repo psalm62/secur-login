@@ -32,6 +32,8 @@ require_once('view/view.php');
 require_once('controller/controller.php');
 require_once('model/model.php');
 
+session_start();
+
 $namecontr=$_POST['nameCtr'];
 if (empty($_POST['nameCtr']))
 {

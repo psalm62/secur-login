@@ -43,6 +43,7 @@ class view
 	public function body()
 	{
 		echo "<body>";
+		$this->menu();
 		$this->all();
 		echo "</body>";
 	}
@@ -62,6 +63,16 @@ class view
 	public function script()
 	{
 	
+	}
+	public function menu()
+	{
+		if(!empty($_SESSION['type']))
+		{
+			echo "<nav><ul>";
+			echo "<li><a href='?page=logout'>Выход</a></li>";
+			echo "</ul></nav>";
+		}
+		
 	}
 	public function all()
 	{

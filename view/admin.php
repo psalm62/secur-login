@@ -21,10 +21,16 @@
  * 
  * 
  */
+
 class admin extends view
 {
+	public function title()
+	{
+		echo "<title>Страница администратора</title>";
+	}
 	public function all()
 	{
+		var_dump($_SESSION);
 		echo "<h1>Страница администратора</h1>";
 	}
 }
