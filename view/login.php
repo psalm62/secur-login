@@ -16,8 +16,7 @@ class login extends view
 	public function all()
 	{
 		view::all();
-		var_dump($_SESSION);
-
+		
 		if($_SESSION['count'] == 1)
 		{
 			echo "<p style='color:red'>Неверный логин или пароль!</p>";
@@ -27,7 +26,6 @@ class login extends view
 			session_destroy();
 		}
 ?>
-		
 		<form method='POST'>
 		<input type='hidden' name='nameCtr' value='testLogin'>
 		<input type='text' name='login' placeholder='Введите логин' required>
@@ -37,6 +35,5 @@ class login extends view
 		<p><a href='?page=reg'>Регистрация</a></p>
 <?php	
 		}
-		
 }
 ?>
