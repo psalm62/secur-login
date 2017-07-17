@@ -9,10 +9,15 @@
  * 
  * 
  */
-session_start();
+//session_start();
 
 class login extends view
 {
+	public function script()
+	{
+		view::script();
+		echo '<script src="js/help.js"></script>';
+	}
 	public function all()
 	{
 		view::all();
@@ -32,13 +37,21 @@ class login extends view
 		<div><input class='inputV' type='password' name='pass' placeholder='Введите пароль' required></div>
 		<div><button class='buttonV'>Вход</button></div>
 		</form>
-		<div class='inputVt'><a class='aHelp' href='#'>Помощь</a>      <a class='aReg' href='?page=reg'>Регистрация</a></div>
+		<div class='inputVt'><a class='aHelp' id='visHelp' href='#'>Помощь</a>      <a class='aReg' href='?page=reg'>Регистрация</a></div>
 <?php			
 		if($_SESSION['count'] == 1)
 		{
 			echo "<p style='color:red;text-align:center;margin-bottom: 20px'>Неверный логин или пароль!</p>";
 		}
 ?>
+		</div>
+		<div id='vButton' class='helpButton helpVis'>
+			<div><span id='closeHelp' class='closeH'><i class="fa fa-times fa-lg" aria-hidden="true"></i> Закрыть</span></div>
+			<div class='buttonBlok'>
+				<div><button>Напомнить логин</button></div>
+				<div><button>Напомнить пароль</button></div>
+				<div><button>Связаться с поддержкой</button></div>
+			</div>
 		</div>
 <?php	
 		}

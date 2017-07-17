@@ -64,7 +64,7 @@ class view
 	}
 	public function script()
 	{
-	
+		echo '<script src="js/jquery-3.2.1.min.js"></script>';
 	}
 	public function menu()
 	{
@@ -78,7 +78,7 @@ class view
 	}
 	public function all()
 	{
-		
+
 	}
 }
 ?>

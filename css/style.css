@@ -84,3 +84,56 @@ body {
 	font-weight: bold;
 	text-align: center;
 }
+.helpButton {
+	visibility: hidden;
+}
+.helpVis {
+	background: rgba(255, 255, 255, 0.1) none repeat scroll 0 0;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 4px;
+    box-sizing: border-box;
+    max-width: 100%;
+    width: 250px;
+    position: absolute;
+    left:15%;
+    margin-top: 14rem;
+}
+.closeH {
+	cursor: pointer;
+	padding: 10px;
+	position: absolute;
+	right: 0px;
+}
+.closeH:hover {
+	background-color: #8286c5;
+	border-color: transparent;
+/*	transition: all 0.3s ease-out 0s;*/
+}
+.buttonBlok {
+	padding: 10px;
+	margin-top: 40px;
+}
+.buttonBlok > div {
+	margin-bottom: 5px;
+}
+.buttonBlok > div > button {
+	width: 230px;
+	height: 40px;
+	border-radius: 4px 4px 4px 4px;
+	clear: both;
+	background-color: #9397cd;
+    border-color: #9397cd;
+    color: #fff;
+    /*text-transform: uppercase;*/
+    font-size: 15px;
+/*    font-weight: bold;*/
+}
+.buttonBlok > div > button:hover {
+		background-color: #8286c5;
+		border-color: transparent;
+		transition: all 0.3s ease-out 0s;
+}
+.buttonBlok > div > button:active {
+		background-color: #66669a;
+		border-color: #66669a;
+}
