@@ -28,6 +28,11 @@ class admin extends view
 	{
 		echo "<title>Страница администратора</title>";
 	}
+	public function css()
+	{
+		view::css();
+		echo "<style>body {background: grey};</style>";
+	}
 	public function all()
 	{
 		var_dump($_SESSION);

@@ -52,7 +52,6 @@ class controller
 			}
 			else
 			{
-				//var_dump($_SESSION);
 				header('Location: ./?page=login');
 			}
 		}
@@ -81,9 +80,10 @@ class controller
 		{
 			session_unset('count');
 			$_SESSION['id']=$row['id'];
-			$_SESSION['name']=$row['name'];
+			//$_SESSION['email']=$row['email'];
 			$_SESSION['type']=$row['type'];			
-			header("Location: ./?id={$_SESSION['id']}&page={$_SESSION['type']}");
+
+			header("Location: ./?page={$_SESSION['type']}");
 		}
 	}
 	public function regUser()
@@ -92,9 +92,9 @@ class controller
 		
 		$login=filter_input(INPUT_POST, 'login', FILTER_SANITIZE_SPECIAL_CHARS);
 		$passw=filter_input(INPUT_POST, 'pass1', FILTER_SANITIZE_SPECIAL_CHARS);
-		$fio=filter_input(INPUT_POST, 'fio', FILTER_SANITIZE_SPECIAL_CHARS);
+		$email=filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
 		
-		if(empty($login) || empty($passw) || empty($fio))
+		if(empty($login) || empty($passw) || empty($email))
 		{
 			$_SESSION['count']=2;
 			header('Location: ./?page=reg');
@@ -108,10 +108,11 @@ class controller
 		}
 		
 		$c_login=openssl_encrypt($login, $dbA, $dbClobalKey, OPENSSL_RAW_DATA, $dbGlobalIv);
+		$c_email=openssl_encrypt($email, $dbA, $dbClobalKey, OPENSSL_RAW_DATA, $dbGlobalIv);
 		$c_passw=password_hash($passw, PASSWORD_BCRYPT, ['cost'=>12]);
 		
 		$model=model::getInstance();
-		$res=$model->regUser($c_login, $c_passw, $fio);
+		$res=$model->regUser($c_login, $c_passw, $c_email);
 		if($res!==false)
 		{
 			session_destroy();

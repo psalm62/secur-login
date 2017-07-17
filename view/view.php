@@ -50,6 +50,7 @@ class view
 	public function footer()
 	{
 		echo "<footer>";
+		echo "<div class='copy'>2017 &copy; БЕЗОПАСНАЯ СИСТЕМА АВТОРИЗАЦИИ. </div>";
 		echo "</footer>";
 	}
 	public function title()
@@ -58,7 +59,8 @@ class view
 	}
 	public function css()
 	{
-		
+		echo '<link rel="stylesheet" href="css/font-awesome.min.css">';
+		echo "<link rel='stylesheet' type='text/css' href='css/style.css'>";
 	}
 	public function script()
 	{

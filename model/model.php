@@ -64,15 +64,15 @@ class model
 			return false;
 		}
 	}
-	public function regUser($login, $pass, $name)
+	public function regUser($login, $pass, $email)
 	{
 		$stmt=$this->dbh->prepare(
-			'INSERT INTO `reg_user`(`login`,`pass`,`name`)
-			VALUES (:login, :pass, :name)'
+			'INSERT INTO `reg_user`(`login`,`pass`,`email`)
+			VALUES (:login, :pass, :email)'
 		);
 		$stmt->bindValue(':login', $login);
 		$stmt->bindValue(':pass', $pass);
-		$stmt->bindValue(':name', $name);
+		$stmt->bindValue(':email', $email);
 		$res=$stmt->execute();
 		
 		return $res;

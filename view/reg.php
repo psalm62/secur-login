@@ -15,29 +15,35 @@ class reg extends view
 	public function all()
 	{
 		view::all();
-		if($_SESSION['count']==2)
-		{
-			echo "<p style='color:red'>Заполните ВСЕ поля!</p>";
-		}
-		if($_SESSION['count']==3)
-		{
-			echo "<p style='color:red'>Пароли не совпадают!</p>";
-		}
+		
 		if($_SESSION['count']==1)
 		{
 			session_destroy();
 		}
 		
 ?>
+		<div class='formV'>
+		<p class='textForm'><i class="fa fa-user" aria-hidden="true"> Новый пользователь</i><p>
 		<form method='POST'>
 		<input type='hidden' name='nameCtr' value='regUser'>
-		<input type='text' name='login' placeholder='Введите логин' required>
-		<input type='text' name='fio' placeholder='Введите имя' required>
-		<input type='password' name='pass1' placeholder='Введите пароль' required>
-		<input type='password' name='pass2' placeholder='Повторите пароль' required>
-		<input type=submit>
+		<div><input class='inputV' type='text' name='login' placeholder='Введите логин' required></div>
+		<div><input class='inputV' type='email' name='email' placeholder='Введите Email' required></div>
+		<div><input class='inputV' type='password' name='pass1' placeholder='Введите пароль' required></div>
+		<div><input class='inputV' type='password' name='pass2' placeholder='Повторите пароль' required></div>
+		<div><button class='buttonV'>Регистрация</button></div>
 		</form>
-		<p><a href='?page=login'>Войти в систему</a></p>
+		<div class='inputVt'><a class='aHelp' href='#'>Помощь</a><a class='aReg' href='?page=login'>Войти в систему</a></div>
+<?php
+		if($_SESSION['count']==2)
+		{
+			echo "<p style='color:red;text-align:center'>Заполните ВСЕ поля!</p>";
+		}
+		if($_SESSION['count']==3)
+		{
+			echo "<p style='color:red;text-align:center'>Пароли не совпадают!</p>";
+		}
+?>
+		</div>
 <?php	
 	}
 }

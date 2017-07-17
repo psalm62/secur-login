@@ -28,6 +28,11 @@ class user extends view
 	{
 		echo "<title>Страница пользователя</title>";
 	}
+	public function css()
+	{
+		view::css();
+		echo "<style>body {background: grey};</style>";
+	}
 	public function all()
 	{
 		echo "<h1>Страница пользователя</h1>";

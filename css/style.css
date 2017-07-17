@@ -1,0 +1,86 @@
+body {
+	background-image: url(../images/bg.jpg);
+	font-family: Arial,"Helvetica Neue",Helvetica,sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+}
+.aReg {
+	font-weight: bold;
+	padding: 15px;
+}
+.aHelp {
+	padding: 15px;
+}
+.buttonV {
+	width: 250px;
+	height: 40px;
+	border-radius: 4px 4px 4px 4px;
+	clear: both;
+	margin: 7px;
+	background-color: #9397cd;
+    border-color: #9397cd;
+    color: #fff;
+    text-transform: uppercase;
+    font-size: 16px;
+    font-weight: bold;
+}
+.buttonV:hover {
+		background-color: #8286c5;
+		border-color: transparent;
+		transition: all 0.3s ease-out 0s;
+}
+.buttonV:active {
+		background-color: #66669a;
+		border-color: #66669a;
+}
+.inputV {
+	width: 250px;
+	height: 40px;
+	border-radius: 4px 4px 4px 4px;
+	clear: both;
+	margin: 7px;
+	padding-left: 20px;
+	background: rgba(255, 255, 255, 0.1) none repeat scroll 0 0;
+    border-color: #dfdfdf;
+}
+.inputVt {
+	width: 250px;
+	height: 40px;
+	clear: both;
+	margin: 7px;
+	padding-left: 20px;
+}
+.copy {
+	position: absolute;
+	bottom: 30px;
+	left: 36%;
+    color: #fff;
+
+}
+.formV {
+	background: rgba(255, 255, 255, 0.1) none repeat scroll 0 0;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin-bottom: 2rem;
+    margin-top: 8rem;
+    min-height: 350px;
+    padding: 30px 70px 0;
+    max-width: 100%;
+    width: 400px;
+    position: absolute;
+    left: 35%;
+}
+.nameForm {
+	text-transform: uppercase;
+	color: #fff;
+	font-weight: bold;
+	text-align: center;
+	margin-bottom: 40px;
+}
+.textForm {
+	text-transform: uppercase;
+	color: #fff;
+	font-weight: bold;
+	text-align: center;
+}

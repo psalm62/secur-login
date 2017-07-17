@@ -1,0 +1,393 @@
+TABLE {
+	border-collapse: collapse;
+	border: 3px solid transparent;
+}
+TD,TR 	{
+	padding: 3px;
+	border: 1px solid black;
+}
+TH {
+    padding: 3px;
+    /*background: #b0e0e6;*/
+    border: 1px solid black;
+}
+ body {
+	/*background: #F7F8F9;
+	background: url(image/textiure_2.jpg);*/
+	background-image: url(image/text_2.jpg);
+}
+form {
+	margin: 0;
+}
+.zagolovok {
+ 	max-width: 1200px;
+ 	min-width: 400px;
+ 	/*margin: 5px auto;*/
+ }
+.ezagolovok {
+	width: 33%;
+	float: left;
+}
+.element {
+	
+	height: 140px;
+	margin: 20px;
+	padding: 5px;
+	border: 10px;
+
+}
+.formlogin {
+	width: 400px;
+	height: 300px;
+	border-radius: 3px 3px 3px 3px;
+	background: #FFFFFF;
+	padding: 17px;
+	padding-right: 10px;
+	float: left;
+	border: solid 1px;
+	}
+.minilogin {
+	width: 150px;
+	height: 150px;
+	/*border-radius: 3px 3px 3px 3px;
+	background: #FFFFFF;*/
+	padding: 30px;
+/*	padding-right: 30px;*/
+	float: left;
+/*	border: solid 1px;*/
+}	
+.fvil {
+	width: 250px;
+	height: 30px;
+	border-radius: 4px 4px 4px 4px;
+}
+.fvil-regp {
+	width: 450px;
+	height: 30px;
+	border-radius: 4px 4px 4px 4px;
+}
+.fvil-regp-ck {
+	width: 50px;
+	height: 30px;
+	border-radius: 4px 4px 4px 4px;
+}
+.fvilmini {
+	width: 170px;
+	height: 30px;
+	border-radius: 4px 4px 4px 4px;
+}
+.formacalendar {
+	width: auto;
+	height: 30px;
+	border-radius: 4px 4px 4px 4px;
+}
+.regbossblok {
+	float: left;
+	padding: 20px;
+	border: 1px;
+}
+.leftblok1 {
+	float: left;
+}
+.formregall {
+	/*width: 1000px;*/
+	/*height: 420px;*/
+	/*border-radius: 3px 3px 3px 3px;*/
+	/*background-image: url(image/text_2.jpg);*/
+	/*background: #FFFFFF;*/
+	padding: 17px;
+	/*padding-right: 10px;*/
+	float: left;
+	/*border: solid 1px;*/
+/*	overflow: hidden;*/
+}
+.formregall div:after {
+	visibility: hidden;
+	display: block;
+	clear: both;
+	content: " ";
+}
+.formreg {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	display: none;
+}
+.formreg.open {
+	display: block;
+}
+.formreg >div.backgroundReg {
+	z-index: 800;
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	left: 0px;
+	top: 0px;
+	background-color: rgba(0,0,0,0.7);
+}
+.formreg >div.formcontent {
+	z-index: 1000;
+	top: -210px;
+	left: -200px;
+	width: 400px;
+	height: 220px;
+	position: absolute;
+	border-radius: 8px 8px 8px 8px;
+	background: #F7F8F9;
+	padding: 17px;
+	padding-right: 10px;
+	border: solid 1px;
+	overflow: hidden;
+}
+.formreg >div.formcontent div:after {
+	visibility: hidden;
+	display: block;
+	clear: both;
+	content: " ";
+
+}
+.incorrect {
+	/*background: #DDE0C6;
+	/*border: solid 1px;*/
+	border-color: red;
+	width: 250px;
+	height: 30px;
+	border-radius: 4px 4px 4px 4px;
+}
+/*.incorrect2 {
+	background: #FFFFFF;
+	width: 250px;
+	height: 30px;
+	border-radius: 4px 4px 4px 4px;
+}*/
+.incorrect2 {
+	/*background: #DDE0C6;
+	/*border: solid 1px;*/
+	border-color: red;
+	width: 250px;
+	height: 30px;
+	border-radius: 4px 4px 4px 4px;
+}
+.incorrect3 {
+	/*background: #DDE0C6;
+	/*border: solid 1px;*/
+	border-color: red;
+	width: 250px;
+	height: 30px;
+	border-radius: 4px 4px 4px 4px;
+}
+.sendsms {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	display: none;
+}
+.sendsms.open {
+	display: block;
+}
+.sendsms >div.backgroundMess {
+	z-index: 800;
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	left: 0px;
+	top: 0px;
+	background-color: rgba(0,0,0,0.7);
+}
+.sendsms >div.formcont {
+	z-index: 1000;
+	top: -210px;
+	left: -200px;
+	width: 400px;
+	height: 200px;
+	position: absolute;
+	border-radius: 8px 8px 8px 8px;
+	background: #F7F8F9;
+	padding: 17px;
+	padding-right: 10px;
+	border: solid 1px;
+	overflow: hidden;
+}
+.sendsms >div.formcont div:after {
+	visibility: hidden;
+	display: block;
+	clear: both;
+	content: " ";
+
+}
+.mess {
+	visibility: hidden;
+	font-size: 12px;
+	color: red;
+	/*display: inline-block;*/
+}
+.incorrect ~ .mess {
+	visibility: visible;
+}
+.mess2 {
+	visibility: hidden;
+	font-size: 12px;
+	color: red;
+	/*display: inline-block;*/
+}
+.incorrect2 ~ .mess2 {
+	visibility: visible;
+}
+.mess3 {
+	visibility: hidden;
+	font-size: 12px;
+	color: red;
+	/*display: inline-block;*/
+}
+.incorrect3 ~ .mess3 {
+	visibility: visible;
+}
+.statpeople {
+	background-color: #919691; 
+}
+nav {
+	width: 100%;
+	height: 40px;
+/*	background-color: #919691;*/
+
+}
+nav ul {
+	display: block;
+	width: 100%;
+	height: 40px;
+	list-style: none;
+	-webkit-margin-before: 0em;
+    -webkit-margin-after: 0em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+    -webkit-padding-start: 0px;
+}
+nav li {
+	padding-left: 5px; 
+	position: relative;
+	display: block;
+	height: 40px;
+	list-style: none;
+	background-color: #919691;
+	color: black;
+	font-size: 22px;
+}
+nav ul.topmenu >li {
+	float: left;
+	margin-right: 20px;
+	padding-right: 20px;
+	border-radius: 5px 5px 5px 5px;
+}
+nav ul.topmenu ul {
+	visibility: hidden;
+}
+nav ul.topmenu li:hover {
+	visibility: visible;
+	background-color: #B0B9B0;
+	cursor: pointer;
+}
+nav ul.topmenu li:hover ul {
+	visibility: visible;
+}
+nav ul.topmenu >li.right {
+	float: right;
+	padding-right: 20px;
+}
+nav ul.topmenu >li.probel {
+	background-image: url(image/text_2.jpg);
+	cursor: inherit;
+}
+nav ul.topmenu a, ul.topmenu button {
+	align-items: flex-start;
+	box-sizing: content-box;
+	line-height: normal;
+	font-family: Arial;
+	padding-bottom: 1px;
+	padding-left: 6px;
+	padding-right: 6px;
+	padding-top: 1px;
+	font-size: 22px;
+	border: 0;
+	background: transparent;
+	display: block;
+	color: black;
+	height: 40px;
+}
+a {
+	text-decoration: none;
+}
+.testtest {
+display: inline-block;
+}
+.modifaddr {
+	padding: 20;
+	float: left;
+	margin-left: 5;
+	position: relative;
+}
+.fiostreet {
+	position: relative;
+}
+.domkv {
+	position: relative;
+}
+.modifsecure {
+	padding: 20;
+	display: inline-block;
+	clear: right;
+	position: relative;
+}
+.savebutton {
+	padding-left: 30;
+}
+.leftmenu {
+	float: right;
+	padding-right: 40px;
+}
+.sendmess {
+	visibility: hidden;
+}
+.styleadress { 
+     color: #311484; 
+     font-size: 150%; 
+     font-style: italic;
+     /*font-family: serif;
+     position: relative;
+     top: 5px; */
+}
+.tablepeople {
+float: left;
+}
+.calendar {
+	position: absolute;
+left: 280px;
+top: 105px;
+}
+.calweekend {
+	color: red;
+}
+.caltoday {
+	font-weight: bold;
+}
+.calyesday {
+	color: blue;
+	/*text-decoration: underline;*/
+}
+.calyesday:after {
+	color: blue;
+	content: "*";
+}
+.formChangeboss {
+	width: 50%;
+	float: right;
+}
+.dataBoss {
+	width: 50%;
+	float: left;
+}
+.dataTable {
+	clear: both;
+}
+.hidden {
+	visibility: hidden;
+}
