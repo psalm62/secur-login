@@ -29,7 +29,12 @@ class access
 		'user'=>array('admin','user'),
 		'logout'=>array('admin', 'user'),
 		'reg'=>array(null),
-		'login'=>array(null)
+		'login'=>array(null),
+		'reclogin'=>array(null),
+		'recpass'=>array(null),
+		'recode'=>array(null),
+		'support'=>array(null),
+		'newpass'=>array(null)
 	);
 	
 	public function canAccess($type)

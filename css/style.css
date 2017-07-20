@@ -43,6 +43,16 @@ body {
 	background: rgba(255, 255, 255, 0.1) none repeat scroll 0 0;
     border-color: #dfdfdf;
 }
+.inputT {
+	/*width: 250px;
+	height: 40px;*/
+	border-radius: 4px 4px 4px 4px;
+	clear: both;
+	margin: 7px;
+	padding-left: 20px;
+	background: rgba(255, 255, 255, 0.1) none repeat scroll 0 0;
+    border-color: #dfdfdf;
+}
 .inputVt {
 	width: 250px;
 	height: 40px;
@@ -65,9 +75,9 @@ body {
     margin-bottom: 2rem;
     margin-top: 8rem;
     min-height: 350px;
-    padding: 30px 70px 0;
+    padding: 30px 45px 0;
     max-width: 100%;
-    width: 400px;
+    width: 355px;
     position: absolute;
     left: 35%;
 }
@@ -116,7 +126,17 @@ body {
 .buttonBlok > div {
 	margin-bottom: 5px;
 }
-.buttonBlok > div > button {
+/*.buttonBlok > div > button {
+	width: 230px;
+	height: 40px;
+	border-radius: 4px 4px 4px 4px;
+	clear: both;
+	background-color: #9397cd;
+    border-color: #9397cd;
+    color: #fff;
+    font-size: 15px;
+}*/
+.buttonBlok > div > a > button {
 	width: 230px;
 	height: 40px;
 	border-radius: 4px 4px 4px 4px;
@@ -128,7 +148,7 @@ body {
     font-size: 15px;
 /*    font-weight: bold;*/
 }
-.buttonBlok > div > button:hover {
+/*.buttonBlok > div > button:hover {
 		background-color: #8286c5;
 		border-color: transparent;
 		transition: all 0.3s ease-out 0s;
@@ -136,4 +156,24 @@ body {
 .buttonBlok > div > button:active {
 		background-color: #66669a;
 		border-color: #66669a;
+}*/
+.buttonBlok > div > a > button:hover {
+		background-color: #8286c5;
+		border-color: transparent;
+		transition: all 0.3s ease-out 0s;
+}
+.buttonBlok > div > a > button:active {
+		background-color: #66669a;
+		border-color: #66669a;
+}
+.formRec {
+	margin-top: 80px;
+	margin-left: 80px;
+}
+.textRec {
+	margin: 25px;
+	font-size: 16px;
+}
+.inputRec {
+	margin: 25px;
 }

@@ -64,15 +64,116 @@ class model
 			return false;
 		}
 	}
-	public function regUser($login, $pass, $email)
+	public function regUser($login, $pass, $email, $iv)
 	{
 		$stmt=$this->dbh->prepare(
-			'INSERT INTO `reg_user`(`login`,`pass`,`email`)
-			VALUES (:login, :pass, :email)'
+			'INSERT INTO `reg_user`(`login`,`pass`,`email`,`iv`)
+			VALUES (:login, :pass, :email, :iv)'
 		);
 		$stmt->bindValue(':login', $login);
 		$stmt->bindValue(':pass', $pass);
 		$stmt->bindValue(':email', $email);
+		$stmt->bindValue(':iv', $iv);
+		$res=$stmt->execute();
+		
+		return $res;
+	}
+	public function getLogin($email)
+	{
+		$stmt=$this->dbh->prepare(
+			'SELECT `login` FROM `reg_user` WHERE `email`=:email'
+		);
+		$stmt->bindValue(':email', $email);
+		$stmt->execute();
+		if($row=$stmt->fetch())
+		{
+			return $row;
+		}
+		else
+		{
+			return false;	
+		}
+	}
+	public function getEmail($login)
+	{
+		$stmt=$this->dbh->prepare(
+			'SELECT `email`,`iv` FROM `reg_user` WHERE `login`=:login'
+		);
+		$stmt->bindValue(':login', $login);
+		$stmt->execute();
+		if($row=$stmt->fetch())
+		{
+			return $row;
+		}
+		else
+		{
+			return false;	
+		}
+	}
+	public function sendCode($cod, $login)
+	{
+		$stmt=$this->dbh->prepare(
+			'INSERT INTO `recovery`(`login`,`code`)
+			VALUES (:login, :cod)'
+		);
+		$stmt->bindValue(':login', $login);
+		$stmt->bindValue(':cod', $cod);
+		$res=$stmt->execute();
+		
+		return $res;
+	}
+	public function verCode($code)
+	{
+		$stmt=$this->dbh->prepare(
+			'SELECT `login` FROM `recovery` WHERE `code`=:code'
+		);
+		$stmt->bindValue(':code', $code);
+		$stmt->execute();
+		if($row=$stmt->fetch())
+		{
+			$stmt=$this->dbh->prepare(
+				'DELETE FROM `recovery`
+				WHERE `login`=:login'
+			);
+			$stmt->bindValue(':login', $row['login']);
+			$res=$stmt->execute();
+			if($res)
+			{
+				return $row;
+			}
+			else
+			{
+				echo "Попробуйте позже это сделать";
+				die();
+			}
+		}
+		else
+		{
+			return false;	
+		}
+	}
+	public function newPass($login, $pass)
+	{
+		$stmt=$this->dbh->prepare(
+			'UPDATE `reg_user`
+			SET `pass`=:pass
+			WHERE `login`=:login'
+		);
+		$stmt->bindValue(':login', $login);
+		$stmt->bindValue(':pass', $pass);
+		$res=$stmt->execute();
+		
+		return $res;
+	}
+	public function sendSupport($name, $email, $quest)
+	{
+		$stmt=$this->dbh->prepare(
+			'INSERT INTO `questions`(`name`,`email`,`ques`)
+			VALUES (:name, :email, :ques)'
+		);
+		$stmt->bindValue(':name', $name);
+		$stmt->bindValue(':email', $email);
+		$stmt->bindValue(':ques', $quest);
 		$res=$stmt->execute();
 		
 		return $res;

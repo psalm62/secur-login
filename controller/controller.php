@@ -110,9 +110,12 @@ class controller
 		$c_login=openssl_encrypt($login, $dbA, $dbClobalKey, OPENSSL_RAW_DATA, $dbGlobalIv);
 		$c_email=openssl_encrypt($email, $dbA, $dbClobalKey, OPENSSL_RAW_DATA, $dbGlobalIv);
 		$c_passw=password_hash($passw, PASSWORD_BCRYPT, ['cost'=>12]);
+		$ivsize=openssl_cipher_iv_length($dbA);
+		$iv=openssl_random_pseudo_bytes($ivsize);
+		
 		
 		$model=model::getInstance();
-		$res=$model->regUser($c_login, $c_passw, $c_email);
+		$res=$model->regUser($c_login, $c_passw, $c_email, $iv);
 		if($res!==false)
 		{
 			session_destroy();
@@ -122,6 +125,124 @@ class controller
 		{
 			echo "Не получилось зарегистрировать пользователя";
 			die();
+		}
+	}
+	public function recLogin()
+	{
+		global $dbA, $dbClobalKey, $dbGlobalIv;
+		
+		$email=filter_input(INPUT_POST, 'remail', FILTER_VALIDATE_EMAIL);
+		$c_email=openssl_encrypt($email, $dbA, $dbClobalKey, OPENSSL_RAW_DATA, $dbGlobalIv);
+		
+		$model=model::getInstance();
+		$row=$model->getLogin($c_email);
+		if($row['login'])
+		{
+			$login=openssl_decrypt($row['login'], $dbA, $dbClobalKey, OPENSSL_RAW_DATA, $dbGlobalIv);
+			//mail("$email", "My Subject", "$login"); 
+			header('Location: ./?page=login&info=1');
+		}
+		else
+		{
+			header('Location: ./?page=reclogin&info=error');
+		}
+	}
+	public function recPass()
+	{
+		global $dbA, $dbClobalKey, $dbGlobalIv;
+		
+		$login=filter_input(INPUT_POST, 'login', FILTER_SANITIZE_SPECIAL_CHARS);
+		$c_login=openssl_encrypt($login, $dbA, $dbClobalKey, OPENSSL_RAW_DATA, $dbGlobalIv);
+
+		$model=model::getInstance();
+		$row=$model->getEmail($c_login);
+		if($row['email'])
+		{
+			$email=openssl_decrypt($row['email'], $dbA, $dbClobalKey, OPENSSL_RAW_DATA, $dbGlobalIv);
+			$bytes = random_bytes(3);
+			$hex   = bin2hex($bytes);
+			$res=$model->sendCode($hex, $c_login);
+			if($res!==false)
+			{
+				//mail("$email", "My Subject", "$hex"); 
+				header("Location: ./?page=recode&cd={$hex}");
+			}
+			else
+			{
+				echo "Ошибка! Попробуйте позже.";
+				die();
+			}
+			
+		}
+		else
+		{
+			header('Location: ./?page=recpass&info=1');
+		}
+	}
+	public function recCod()
+	{
+
+		$code=filter_input(INPUT_POST, 'cod', FILTER_SANITIZE_SPECIAL_CHARS);
+		
+		$model=model::getInstance();
+		$row=$model->verCode($code);
+		
+		if($row)
+		{
+			$_SESSION['login']=$row['login'];
+			header('Location: ./?page=newpass');
+		}
+		else
+		{
+			header('Location: ./?page=recode&test=error');
+			die();
+		}
+	}
+	public function newPassword()
+	{
+		
+		if($_POST['pass1']!==$_POST['pass2'])
+		{
+			header('Location: ./?page=newpass&info=1');
+			//var_dump($_POST);
+			die();
+		}
+		
+		$pass1=filter_input(INPUT_POST, 'pass1', FILTER_SANITIZE_SPECIAL_CHARS);
+		//$pass2=filter_input(INPUT_POST, 'pass2', FILTER_SANITIZE_SPECIAL_CHARS);
+		//~ var_dump($_POST);
+		//~ die();		
+		$c_passw=password_hash($pass1, PASSWORD_BCRYPT, ['cost'=>12]);
+		$model=model::getInstance();
+		$res=$model->newPass($_SESSION['login'], $c_passw);
+		
+		if($res!==false)
+		{
+			header('Location: ./?page=login&test=1');
+		}
+		else
+		{
+			echo "Что то пошло не так!";
+			die();
+		}
+	}
+	public function support()
+	{
+		$name=filter_input(INPUT_POST, 'fio', FILTER_SANITIZE_SPECIAL_CHARS);
+		$email=filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
+		$quesh=filter_input(INPUT_POST, 'quesion', FILTER_SANITIZE_SPECIAL_CHARS);
+		
+		$model=model::getInstance();
+		$res=$model->sendSupport($name, $email, $quesh);
+		if($res!==false)
+		{
+			$_SESSION['qw']=1;
+			header('Location: ./?page=support');
+		}
+		else
+		{
+			$_SESSION['qw']=2;
+			header('Location: ./?page=support');
 		}
 	}
 }

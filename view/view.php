@@ -60,7 +60,7 @@ class view
 	public function css()
 	{
 		echo '<link rel="stylesheet" href="css/font-awesome.min.css">';
-		echo "<link rel='stylesheet' type='text/css' href='css/style.css'>";
+		echo '<link rel="stylesheet" type="text/css" href="css/style.css">';
 	}
 	public function script()
 	{
@@ -70,11 +70,8 @@ class view
 	{
 		if(!empty($_SESSION['type']))
 		{
-			echo "<nav><ul>";
 			echo "<li><a href='?page=logout'>Выход</a></li>";
-			echo "</ul></nav>";
 		}
-		
 	}
 	public function all()
 	{

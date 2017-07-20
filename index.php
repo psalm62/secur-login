@@ -35,8 +35,8 @@ require_once('controller/access.php');
 
 session_start();
 
-$namecontr=$_POST['nameCtr'];
-if (empty($_POST['nameCtr']))
+$namecontr=filter_input(INPUT_POST, 'nameCtr', FILTER_SANITIZE_SPECIAL_CHARS);
+if (empty($namecontr))
 {
 	$namecontr='display';
 }
