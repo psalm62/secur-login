@@ -4,6 +4,19 @@ body {
     font-size: 14px;
     font-weight: 400;
 }
+.error {
+	color: red;
+	margin-left: 120px;
+}
+.errorpass {
+	color:red;
+	text-align:center;
+	margin-bottom: 20px;
+}
+.ok {
+	color: green;
+	text-align:center;
+}
 .aReg {
 	font-weight: bold;
 	padding: 15px;

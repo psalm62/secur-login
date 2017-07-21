@@ -17,11 +17,11 @@ class support extends view
 			<div class='formRec'>
 				<i class="fa fa-question fa-4x" aria-hidden="true"> Есть вопросы?</i>
 <?php
-				if($_SESSION['qw']==1)
+				if($_GET['info']==ok)
 				{
 					echo '<div style="margin: 25px;font-size: 16px;color:green"><i class="fa fa-check" aria-hidden="true"> Ваше сообщение отправлено!</i></div>';
 				}
-				if($_SESSION['qw']==2)
+				if($_GET['info']==error)
 				{
 					echo '<div style="margin: 25px;font-size: 16px;color:red"><i class="fa fa-times" aria-hidden="true"> Отправка не удалась.Попробуйте позже.</i></div>';
 				}

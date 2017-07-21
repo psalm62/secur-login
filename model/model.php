@@ -94,10 +94,10 @@ class model
 			return false;	
 		}
 	}
-	public function getEmail($login)
+	public function getEmailForSendCode($login)
 	{
 		$stmt=$this->dbh->prepare(
-			'SELECT `email`,`iv` FROM `reg_user` WHERE `login`=:login'
+			'SELECT `email` FROM `reg_user` WHERE `login`=:login'
 		);
 		$stmt->bindValue(':login', $login);
 		$stmt->execute();
@@ -110,8 +110,23 @@ class model
 			return false;	
 		}
 	}
-	public function sendCode($cod, $login)
+	public function writeCodeBase($cod, $login)
 	{
+		$stmt=$this->dbh->prepare(
+			'SELECT * FROM `recovery` 
+			WHERE `login`=:login'
+		);
+		$stmt->bindValue(':login', $login);
+		$stmt->execute();
+		if($row=$stmt->fetch())
+		{
+			$stmt=$this->dbh->prepare(
+				'DELETE FROM `recovery`
+				WHERE `login`=:login'
+			);
+			$stmt->bindValue(':login', $login);
+			$stmt->execute();
+		}
 		$stmt=$this->dbh->prepare(
 			'INSERT INTO `recovery`(`login`,`code`)
 			VALUES (:login, :cod)'
@@ -122,7 +137,7 @@ class model
 		
 		return $res;
 	}
-	public function verCode($code)
+	public function getLoginOnCode($code)
 	{
 		$stmt=$this->dbh->prepare(
 			'SELECT `login` FROM `recovery` WHERE `code`=:code'

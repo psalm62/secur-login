@@ -31,7 +31,7 @@ class reclogin extends view
 reclogin;
 		if($_GET['info']==error)
 		{
-			echo "<p style='color:red;margin-left:120px;'><i class='fa fa-at' aria-hidden='true'> Указанный email не найден!</i></p>";
+			echo "<p class='error'><i class='fa fa-times' aria-hidden='true'> Указанный email не найден!</i></p>";
 		}
 	}
 }

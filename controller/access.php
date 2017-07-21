@@ -32,7 +32,7 @@ class access
 		'login'=>array(null),
 		'reclogin'=>array(null),
 		'recpass'=>array(null),
-		'recode'=>array(null),
+		'vercode'=>array(null),
 		'support'=>array(null),
 		'newpass'=>array(null)
 	);

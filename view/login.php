@@ -33,15 +33,15 @@ class login extends view
 			if($_GET['info']==1)
 			{
 				//session_unset('count');
-				echo "<p style='color:green;text-align:center;'><i class='fa fa-at' aria-hidden='true'> Логин отправлен на почту</i></p>";
+				echo "<p class='ok'><i class='fa fa-at' aria-hidden='true'> Логин отправлен на почту</i></p>";
 			}
-			if($_GET['test']==1)
+			if($_GET['info']==ok)
 			{
-				echo "<p style='color:green;text-align:center;'><i class='fa fa-at' aria-hidden='true'> Пароль успешно изменен</i></p>";
+				echo "<p class='ok'><i class='fa fa-check' aria-hidden='true'> Пароль успешно изменен</i></p>";
 			}
-			if($_SESSION['count'] == 1)
+			if($_GET['info'] ==error)
 			{
-				echo "<p style='color:red;text-align:center;margin-bottom: 20px'>Неверный логин или пароль!</p>";
+				echo "<p class='errorpass'>Неверный логин или пароль!</p>";
 			}
 ?>
 			<p class='textForm'><i class="fa fa-user" aria-hidden="true"> Логин пользователя</i><p>

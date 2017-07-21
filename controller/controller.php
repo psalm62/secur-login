@@ -4,7 +4,7 @@
  * 
  * Copyright 2017 -=RaM-= <psalm62@protonmail.com>
  * 
- * $dbA, $dbClobalKey, $dbGlobalIv - глобальные, продумать как избавиться от их глобализации...
+ * 
  * 
  */
 
@@ -72,8 +72,8 @@ class controller
 		
 		if($row===false)
 		{
-			$_SESSION['count']=1;
-			header('Location: ./?page=login');
+			//$_SESSION['count']=1;
+			header('Location: ./?page=login&info=error');
 			die();
 		}
 		else
@@ -145,9 +145,10 @@ class controller
 		else
 		{
 			header('Location: ./?page=reclogin&info=error');
+			die();
 		}
 	}
-	public function recPass()
+	public function getCode()
 	{
 		global $dbA, $dbClobalKey, $dbGlobalIv;
 		
@@ -155,37 +156,38 @@ class controller
 		$c_login=openssl_encrypt($login, $dbA, $dbClobalKey, OPENSSL_RAW_DATA, $dbGlobalIv);
 
 		$model=model::getInstance();
-		$row=$model->getEmail($c_login);
+		$row=$model->getEmailForSendCode($c_login);
 		if($row['email'])
 		{
 			$email=openssl_decrypt($row['email'], $dbA, $dbClobalKey, OPENSSL_RAW_DATA, $dbGlobalIv);
 			$bytes = random_bytes(3);
 			$hex   = bin2hex($bytes);
-			$res=$model->sendCode($hex, $c_login);
+			$res=$model->writeCodeBase($hex, $c_login);
 			if($res!==false)
 			{
 				//mail("$email", "My Subject", "$hex"); 
-				header("Location: ./?page=recode&cd={$hex}");
+				header("Location: ./?page=vercode&cd={$hex}");
+				//header("Location: ./?page=recode");
 			}
 			else
 			{
-				echo "Ошибка! Попробуйте позже.";
+				echo "Ошибка! Не удалось...";
 				die();
 			}
 			
 		}
 		else
 		{
-			header('Location: ./?page=recpass&info=1');
+			header('Location: ./?page=recpass&info=error');
 		}
 	}
-	public function recCod()
+	public function verifyCod()
 	{
 
 		$code=filter_input(INPUT_POST, 'cod', FILTER_SANITIZE_SPECIAL_CHARS);
 		
 		$model=model::getInstance();
-		$row=$model->verCode($code);
+		$row=$model->getLoginOnCode($code);
 		
 		if($row)
 		{
@@ -194,7 +196,7 @@ class controller
 		}
 		else
 		{
-			header('Location: ./?page=recode&test=error');
+			header('Location: ./?page=vercode&info=error');
 			die();
 		}
 	}
@@ -203,22 +205,19 @@ class controller
 		
 		if($_POST['pass1']!==$_POST['pass2'])
 		{
-			header('Location: ./?page=newpass&info=1');
-			//var_dump($_POST);
+			header('Location: ./?page=newpass&info=error');
 			die();
 		}
 		
-		$pass1=filter_input(INPUT_POST, 'pass1', FILTER_SANITIZE_SPECIAL_CHARS);
-		//$pass2=filter_input(INPUT_POST, 'pass2', FILTER_SANITIZE_SPECIAL_CHARS);
-		//~ var_dump($_POST);
-		//~ die();		
-		$c_passw=password_hash($pass1, PASSWORD_BCRYPT, ['cost'=>12]);
+		$pass=filter_input(INPUT_POST, 'pass1', FILTER_SANITIZE_SPECIAL_CHARS);
+		$c_passw=password_hash($pass, PASSWORD_BCRYPT, ['cost'=>12]);
+		
 		$model=model::getInstance();
 		$res=$model->newPass($_SESSION['login'], $c_passw);
 		
 		if($res!==false)
 		{
-			header('Location: ./?page=login&test=1');
+			header('Location: ./?page=login&info=ok');
 		}
 		else
 		{
@@ -236,13 +235,11 @@ class controller
 		$res=$model->sendSupport($name, $email, $quesh);
 		if($res!==false)
 		{
-			$_SESSION['qw']=1;
-			header('Location: ./?page=support');
+			header('Location: ./?page=support&info=ok');
 		}
 		else
 		{
-			$_SESSION['qw']=2;
-			header('Location: ./?page=support');
+			header('Location: ./?page=support&info=error');
 		}
 	}
 }

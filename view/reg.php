@@ -14,6 +14,7 @@ class reg extends view
 {
 	public function script()
 	{
+		view::script();
 		echo '<script src="js/help.js"></script>';
 	}
 	public function all()
@@ -39,20 +40,20 @@ class reg extends view
 <?php
 			if($_SESSION['count']==2)
 			{
-				echo "<p style='color:red;text-align:center'>Заполните ВСЕ поля!</p>";
+				echo "<p class='errorpass'>Заполните ВСЕ поля!</p>";
 			}
 			if($_SESSION['count']==3)
 			{
-				echo "<p style='color:red;text-align:center'>Пароли не совпадают!</p>";
+				echo "<p class='errorpass'>Пароли не совпадают!</p>";
 			}
 ?>
 		</div>
 		<div id='vButton' class='helpButton helpVis'>
 			<div><span id='closeHelp' class='closeH'><i class="fa fa-times fa-lg" aria-hidden="true"></i> Закрыть</span></div>
 			<div class='buttonBlok'>
-				<div><button>Напомнить логин</button></div>
-				<div><button>Напомнить пароль</button></div>
-				<div><button>Связаться с поддержкой</button></div>
+			<div><a href='./?page=reclogin'><button>Напомнить логин</button></a></div>
+				<div><a href='./?page=recpass'><button>Напомнить пароль</button></a></div>
+				<div><a href='./?page=support'><button>Связаться с поддержкой</button></a></div>
 			</div>
 		</div>
 <?php	
