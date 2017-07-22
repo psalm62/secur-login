@@ -20,11 +20,6 @@ class reg extends view
 	public function all()
 	{
 		
-		if($_SESSION['count']==1)
-		{
-			session_destroy();
-		}
-		
 ?>
 		<div class='formV'>
 			<p class='textForm'><i class="fa fa-user-plus" aria-hidden="true"> Новый пользователь</i><p>
@@ -38,13 +33,17 @@ class reg extends view
 			</form>
 			<div class='inputVt'><a class='aHelp' id='visHelp' href='#'>Помощь</a>      <a class='aReg' href='?page=login'>Войти в систему</a></div>
 <?php
-			if($_SESSION['count']==2)
+			if($_GET['info']==err)
 			{
 				echo "<p class='errorpass'>Заполните ВСЕ поля!</p>";
 			}
-			if($_SESSION['count']==3)
+			if($_GET['info']==errpass)
 			{
 				echo "<p class='errorpass'>Пароли не совпадают!</p>";
+			}
+			if($_GET['info']==errlogin)
+			{
+				echo "<p class='errorpass'>Логин занят!</p>";
 			}
 ?>
 		</div>

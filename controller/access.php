@@ -33,8 +33,10 @@ class access
 		'reclogin'=>array(null),
 		'recpass'=>array(null),
 		'vercode'=>array(null),
-		'support'=>array(null),
-		'newpass'=>array(null)
+		'support'=>array(null,'user'),
+		'newpass'=>array(null,'admin','user'),
+		'newlogin'=>array('admin','user'),
+		'newemail'=>array('admin','user')
 	);
 	
 	public function canAccess($type)

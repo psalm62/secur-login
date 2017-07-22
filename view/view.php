@@ -70,7 +70,27 @@ class view
 	{
 		if(!empty($_SESSION['type']))
 		{
-			echo "<li><a href='?page=logout'>Выход</a></li>";
+			echo "<ul class='menu'><li><a href='./?page={$_SESSION['type']}'><i class='fa fa-home' aria-hidden='true'> Home</i></a></li>"; 
+			echo "<li><a href='#'><i class='fa fa-cogs' aria-hidden='true'> Настройки</i></a>
+					<ul class='submenu'>
+						<li><a href='./?page=newlogin'>Изменить логин</a></li>
+						<li><a href='./?page=newpass'>Изменить пароль</a></li>
+						<li><a href='./?page=newemail'>Изменить email</a></li>
+					</ul>
+				</li>";
+			if($_SESSION['type']=='admin')
+			{
+				echo "<li><a href='#'><i class='fa fa-users' aria-hidden='true'> Пользователи</i></a></li></ul>";
+			}
+			else
+			{
+				echo "<li><a href='./?page=support'><i class='fa fa-info-circle' aria-hidden='true'> Служба поддержки</i></a></li>";
+			}
+			echo "<li><a href='?page=logout'><i class='fa fa-sign-out' aria-hidden='true'> Выход</i></a></li></ul>";
+		}
+		else
+		{
+			echo "<ul class='menu'><li><a href='./'><i class='fa fa-home' aria-hidden='true'> Home</i></a></li></ul>"; 
 		}
 	}
 	public function all()

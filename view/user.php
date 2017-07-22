@@ -28,13 +28,29 @@ class user extends view
 	{
 		echo "<title>Страница пользователя</title>";
 	}
-	public function css()
-	{
-		view::css();
-		echo "<style>body {background: grey};</style>";
-	}
+	//~ public function css()
+	//~ {
+		//~ view::css();
+		//~ echo "<style>body {background: #C5C5C5};</style>";
+	//~ }
 	public function all()
 	{
+		if($_GET['info']==ok)
+		{
+			echo "<p style='font-size:16px;color:green;margin-left:20px'><i class='fa fa-check' aria-hidden='true'> Пароль успешно изменен</i></p>";
+		}
+		if($_GET['info']==mess)
+		{
+			echo "<p style='font-size:16px;color:green;margin-left:20px'><i class='fa fa-check' aria-hidden='true'> Ваше сообщение отправлено</i></p>";
+		}
+		if($_GET['info']==oklogin)
+		{
+			echo "<p style='font-size:16px;color:green;margin-left:20px'><i class='fa fa-check' aria-hidden='true'> Логин успешно изменен</i></p>";
+		}
+		if($_GET['info']==okemail)
+		{
+			echo "<p style='font-size:16px;color:green;margin-left:20px'><i class='fa fa-check' aria-hidden='true'> Email успешно изменен</i></p>";
+		}
 		echo "<h1>Страница пользователя</h1>";
 	}
 }

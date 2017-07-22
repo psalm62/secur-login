@@ -20,11 +20,6 @@ class login extends view
 	}
 	public function all()
 	{
-		session_unset('qw');
-		if($_SESSION['count']==2 || $_SESSION['count']==3)
-		{
-			session_destroy();
-		}
 ?>
 		
 		<div class='formV'>

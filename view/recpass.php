@@ -7,10 +7,6 @@
  */
 class recpass extends view
 {
-	public function menu()
-	{
-		echo "<li><a href='./'>На главную</a></li>"; 
-	}
 	public function all()
 	{
 		echo <<<recpass

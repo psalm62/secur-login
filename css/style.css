@@ -4,6 +4,59 @@ body {
     font-size: 14px;
     font-weight: 400;
 }
+ul {
+    display: block;
+    /*margin-top: 0;*/
+    margin-left: 45px;
+    padding: 0;
+    list-style: none;
+}
+ul:after {
+    display: block;
+    content: ' ';
+    clear: both;
+    float: none;
+}
+ul.menu > li {
+ 	float: left;
+    position: relative;
+}
+ul.menu > li > a {
+    display: block;
+    padding: 10px;
+    color: white;
+    background-color: #81308D;
+    text-decoration: none;
+}
+ul.menu > li > a:hover {
+    background-color: black;
+}
+ul.submenu {
+    display: none;
+    position: absolute;
+    width: 150px;
+    top: 34px;
+    left: -30px;
+    background-color: white;
+    border: 1px solid #81308D;
+}
+ul.submenu > li {
+    display: block;
+}
+ul.submenu > li > a {
+    display: block;
+    padding: 10px;
+    color: white;
+    background-color: #81308D;
+    text-decoration: none;
+}
+ul.submenu > li > a:hover {
+    /*text-decoration: underline;*/
+    background-color: black;
+}
+ul.menu > li:hover > ul.submenu {
+    display: block;
+}
 .error {
 	color: red;
 	margin-left: 120px;
@@ -16,6 +69,12 @@ body {
 .ok {
 	color: green;
 	text-align:center;
+}
+.toomenu {
+	display: none;
+}
+.topmenu:hover {
+	display: block;
 }
 .aReg {
 	font-weight: bold;

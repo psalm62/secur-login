@@ -94,15 +94,17 @@ class model
 			return false;	
 		}
 	}
-	public function getEmailForSendCode($login)
+	public function getDataForSendCode($login)
 	{
 		$stmt=$this->dbh->prepare(
-			'SELECT `email` FROM `reg_user` WHERE `login`=:login'
+			'SELECT `email`,`id` FROM `reg_user` WHERE `login`=:login'
 		);
 		$stmt->bindValue(':login', $login);
 		$stmt->execute();
 		if($row=$stmt->fetch())
 		{
+			//~ var_dump($row);
+			//~ die();
 			return $row;
 		}
 		else
@@ -110,37 +112,37 @@ class model
 			return false;	
 		}
 	}
-	public function writeCodeBase($cod, $login)
+	public function writeCodeBase($cod, $id)
 	{
 		$stmt=$this->dbh->prepare(
 			'SELECT * FROM `recovery` 
-			WHERE `login`=:login'
+			WHERE `id`=:id'
 		);
-		$stmt->bindValue(':login', $login);
+		$stmt->bindValue(':id', $id);
 		$stmt->execute();
 		if($row=$stmt->fetch())
 		{
 			$stmt=$this->dbh->prepare(
 				'DELETE FROM `recovery`
-				WHERE `login`=:login'
+				WHERE `id`=:id'
 			);
-			$stmt->bindValue(':login', $login);
+			$stmt->bindValue(':id', $id);
 			$stmt->execute();
 		}
 		$stmt=$this->dbh->prepare(
-			'INSERT INTO `recovery`(`login`,`code`)
-			VALUES (:login, :cod)'
+			'INSERT INTO `recovery`(`id`,`code`)
+			VALUES (:id, :cod)'
 		);
-		$stmt->bindValue(':login', $login);
+		$stmt->bindValue(':id', $id);
 		$stmt->bindValue(':cod', $cod);
 		$res=$stmt->execute();
 		
 		return $res;
 	}
-	public function getLoginOnCode($code)
+	public function getIdOnCode($code)
 	{
 		$stmt=$this->dbh->prepare(
-			'SELECT `login` FROM `recovery` WHERE `code`=:code'
+			'SELECT `id` FROM `recovery` WHERE `code`=:code'
 		);
 		$stmt->bindValue(':code', $code);
 		$stmt->execute();
@@ -148,9 +150,9 @@ class model
 		{
 			$stmt=$this->dbh->prepare(
 				'DELETE FROM `recovery`
-				WHERE `login`=:login'
+				WHERE `id`=:id'
 			);
-			$stmt->bindValue(':login', $row['login']);
+			$stmt->bindValue(':id', $row['id']);
 			$res=$stmt->execute();
 			if($res)
 			{
@@ -167,14 +169,14 @@ class model
 			return false;	
 		}
 	}
-	public function newPass($login, $pass)
+	public function newPass($id, $pass)
 	{
 		$stmt=$this->dbh->prepare(
 			'UPDATE `reg_user`
 			SET `pass`=:pass
-			WHERE `login`=:login'
+			WHERE `id`=:id'
 		);
-		$stmt->bindValue(':login', $login);
+		$stmt->bindValue(':id', $id);
 		$stmt->bindValue(':pass', $pass);
 		$res=$stmt->execute();
 		
@@ -189,6 +191,46 @@ class model
 		$stmt->bindValue(':name', $name);
 		$stmt->bindValue(':email', $email);
 		$stmt->bindValue(':ques', $quest);
+		$res=$stmt->execute();
+		
+		return $res;
+	}
+	public function testNewLogin($login)
+	{
+		$stmt=$this->dbh->prepare(
+			'SELECT * FROM `reg_user` WHERE `login`=:login'
+		);
+		$stmt->bindValue(':login', $login);
+		$stmt->execute();
+		if($row=$stmt->fetch())
+		{
+			return $row;
+		}
+		
+		
+	}
+	public function createNewLogin($id, $login)
+	{
+		$stmt=$this->dbh->prepare(
+			'UPDATE `reg_user`
+			SET `login`=:login
+			WHERE `id`=:id'
+		);
+		$stmt->bindValue(':id', $id);
+		$stmt->bindValue(':login', $login);
+		$res=$stmt->execute();
+		
+		return $res;
+	}
+	public function createNewEmail($id, $email)
+	{
+		$stmt=$this->dbh->prepare(
+			'UPDATE `reg_user`
+			SET `email`=:email
+			WHERE `id`=:id'
+		);
+		$stmt->bindValue(':id', $id);
+		$stmt->bindValue(':email', $email);
 		$res=$stmt->execute();
 		
 		return $res;

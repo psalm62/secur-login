@@ -7,10 +7,6 @@
  */
 class support extends view
 {
-	public function menu()
-	{
-		echo "<li><a href='./'>На главную</a></li>"; 
-	}
 	public function all()
 	{
 ?>		
@@ -29,8 +25,13 @@ class support extends view
 				<div class='inputRec'>
 					<form method='POST'>
 						<input type='hidden' name='nameCtr' value='support'>
-						<div><input class='inputV' type=text name=fio placeholder="Ваше имя" required></div>
-						<div><input class='inputV' type=email name=email placeholder="Ваш email" required></div>
+<?php
+						if(!$_SESSION['type'])
+						{
+							echo "<div><input class='inputV' type=text name=fio placeholder='Ваше имя' required></div>";
+							echo "<div><input class='inputV' type=email name=email placeholder='Ваш email' required></div>";							
+						}
+?>
 						<div><textarea class='inputT' rows="15" cols="58" name="quesion" placeholder="Опишите свой вопрос" required></textarea></div>
 						<div><button class='buttonV'>Отправить</button></div>
 					</form>

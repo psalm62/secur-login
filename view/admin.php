@@ -28,14 +28,12 @@ class admin extends view
 	{
 		echo "<title>Страница администратора</title>";
 	}
-	public function css()
-	{
-		view::css();
-		echo "<style>body {background: grey};</style>";
-	}
 	public function all()
 	{
-		var_dump($_SESSION);
+		if($_GET['info']==ok)
+		{
+			echo "<p style='font-size:16px;color:green;margin-left:20px'><i class='fa fa-check' aria-hidden='true'> Пароль успешно изменен</i></p>";
+		}
 		echo "<h1>Страница администратора</h1>";
 	}
 }
