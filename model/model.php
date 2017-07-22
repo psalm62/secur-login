@@ -235,5 +235,43 @@ class model
 		
 		return $res;
 	}
+	public function searchUserData($data)
+	{
+		if(count($data)==1)
+		{
+			foreach ($data as $key => $value)
+			{
+				$dop=' WHERE `'.$key.'`=:'.$key;
+			}
+			$stmt=$this->dbh->prepare(
+				'SELECT * FROM `reg_user`'.$dop 
+			);
+			$stmt->bindValue(':'.$key, $value);
+		}
+		else
+		{
+			$stmt=$this->dbh->prepare(
+				'SELECT * FROM `reg_user`WHERE `login`=:login AND `email`=:email' 
+			);
+			$stmt->bindValue(':login', $data['login']);
+			$stmt->bindValue(':email', $data['email']);
+		}
+		
+		$stmt->execute();
+		if($row=$stmt->fetch())
+		{
+			return $row;
+		}
+	}
+	public function newUserStatus($id, $type)
+	{
+		$stmt=$this->dbh->prepare(
+			'UPDATE `reg_user` SET `type`=:type WHERE `id`=:id'
+		);
+		$stmt->bindValue(':type', $type);
+		$stmt->bindValue(':id', $id);
+		$stmt->execute();
+
+	}
 }
 ?>

@@ -311,5 +311,15 @@ class controller
 			die();
 		}
 	}
+	public function sendType()
+	{
+		$id=filter_input(INPUT_POST, 'id', FILTER_VALIDATE_INT);
+		$type=filter_input(INPUT_POST, 'type', FILTER_SANITIZE_SPECIAL_CHARS);
+		
+		$model=model::getInstance();
+		$res=$model->newUserStatus($id, $type);
+		header("Location: ./?{$_SERVER['QUERY_STRING']}");
+	}
+	
 }
 ?>

@@ -34,7 +34,7 @@ ul.menu > li > a:hover {
 ul.submenu {
     display: none;
     position: absolute;
-    width: 150px;
+    width: 160px;
     top: 34px;
     left: -30px;
     background-color: white;

@@ -50,7 +50,8 @@ class view
 	public function footer()
 	{
 		echo "<footer>";
-		echo "<div class='copy'>2017 &copy; БЕЗОПАСНАЯ СИСТЕМА АВТОРИЗАЦИИ. </div>";
+		//echo "<div class='copy'>2017 &copy; БЕЗОПАСНАЯ СИСТЕМА АВТОРИЗАЦИИ. </div>";
+		echo "<div class='copy'>2017 <i class='fa fa-copyright' aria-hidden='true'> БЕЗОПАСНАЯ СИСТЕМА АВТОРИЗАЦИИ.</i></div>";
 		echo "</footer>";
 	}
 	public function title()
@@ -73,14 +74,14 @@ class view
 			echo "<ul class='menu'><li><a href='./?page={$_SESSION['type']}'><i class='fa fa-home' aria-hidden='true'> Home</i></a></li>"; 
 			echo "<li><a href='#'><i class='fa fa-cogs' aria-hidden='true'> Настройки</i></a>
 					<ul class='submenu'>
-						<li><a href='./?page=newlogin'>Изменить логин</a></li>
-						<li><a href='./?page=newpass'>Изменить пароль</a></li>
-						<li><a href='./?page=newemail'>Изменить email</a></li>
+						<li><a href='./?page=newlogin'><i class='fa' aria-hidden='true'> Изменить логин</i></a></li>
+						<li><a href='./?page=newpass'><i class='fa' aria-hidden='true'> Изменить пароль</i></a></li>
+						<li><a href='./?page=newemail'><i class='fa' aria-hidden='true'> Изменить email</i></a></li>
 					</ul>
 				</li>";
 			if($_SESSION['type']=='admin')
 			{
-				echo "<li><a href='#'><i class='fa fa-users' aria-hidden='true'> Пользователи</i></a></li></ul>";
+				echo "<li><a href='./?page=users_list'><i class='fa fa-users' aria-hidden='true'> Пользователи</i></a></li>";
 			}
 			else
 			{

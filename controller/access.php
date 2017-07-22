@@ -36,7 +36,8 @@ class access
 		'support'=>array(null,'user'),
 		'newpass'=>array(null,'admin','user'),
 		'newlogin'=>array('admin','user'),
-		'newemail'=>array('admin','user')
+		'newemail'=>array('admin','user'),
+		'users_list'=>array('admin')
 	);
 	
 	public function canAccess($type)
