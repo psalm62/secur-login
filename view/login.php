@@ -9,7 +9,6 @@
  * 
  * 
  */
-//session_start();
 
 class login extends view
 {
@@ -27,7 +26,6 @@ class login extends view
 <?php
 			if($_GET['info']==1)
 			{
-				//session_unset('count');
 				echo "<p class='ok'><i class='fa fa-at' aria-hidden='true'> Логин отправлен на почту</i></p>";
 			}
 			if($_GET['info']==ok)
@@ -36,7 +34,11 @@ class login extends view
 			}
 			if($_GET['info'] ==error)
 			{
-				echo "<p class='errorpass'>Неверный логин или пароль!</p>";
+				echo "<p class='errorpass'><i class='fa fa-times' aria-hidden='true'> Неверный логин или пароль!</i></p>";
+			}
+			if($_GET['info'] ==err)
+			{
+				echo "<p class='errorpass'><i class='fa fa-times' aria-hidden='true'> Этот логин заблокирован!</i></p>";
 			}
 ?>
 			<p class='textForm'><i class="fa fa-user" aria-hidden="true"> Логин пользователя</i><p>

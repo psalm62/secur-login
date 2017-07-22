@@ -72,8 +72,12 @@ class controller
 		
 		if($row===false)
 		{
-			//$_SESSION['count']=1;
 			header('Location: ./?page=login&info=error');
+			die();
+		}
+		elseif($row['status']==1)
+		{
+			header("Location: ./?page=login&info=err");
 			die();
 		}
 		else
@@ -92,7 +96,7 @@ class controller
 		
 		$login=filter_input(INPUT_POST, 'login', FILTER_SANITIZE_SPECIAL_CHARS);
 		$passw=filter_input(INPUT_POST, 'pass1', FILTER_SANITIZE_SPECIAL_CHARS);
-		$email=filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
+		$email=filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
 		
 		if(empty($login) || empty($passw) || empty($email))
 		{
@@ -123,7 +127,6 @@ class controller
 		$res=$model->regUser($c_login, $c_passw, $c_email, $iv);
 		if($res!==false)
 		{
-		//	session_destroy();
 			header('Location: ./?page=login');
 		}
 		else
@@ -136,7 +139,7 @@ class controller
 	{
 		global $dbA, $dbClobalKey, $dbGlobalIv;
 		
-		$email=filter_input(INPUT_POST, 'remail', FILTER_VALIDATE_EMAIL);
+		$email=filter_input(INPUT_POST, 'remail', FILTER_SANITIZE_EMAIL);
 		$c_email=openssl_encrypt($email, $dbA, $dbClobalKey, OPENSSL_RAW_DATA, $dbGlobalIv);
 		
 		$model=model::getInstance();
@@ -238,7 +241,7 @@ class controller
 	public function support()
 	{
 		$name=filter_input(INPUT_POST, 'fio', FILTER_SANITIZE_SPECIAL_CHARS, ['options'=>['default'=>$_SESSION['id']]]);
-		$email=filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL, ['options'=>['default'=>$_SESSION['email']]]);
+		$email=filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL, ['options'=>['default'=>$_SESSION['email']]]);
 		$quesh=filter_input(INPUT_POST, 'quesion', FILTER_SANITIZE_SPECIAL_CHARS);
 		
 		$model=model::getInstance();
@@ -296,7 +299,7 @@ class controller
 			echo "Пустой email нельзя";
 			die();
 		}
-		$email=filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
+		$email=filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
 		$c_email=openssl_encrypt($email, $dbA, $dbClobalKey, OPENSSL_RAW_DATA, $dbGlobalIv);
 		
 		$model=model::getInstance();
@@ -313,13 +316,26 @@ class controller
 	}
 	public function sendType()
 	{
-		$id=filter_input(INPUT_POST, 'id', FILTER_VALIDATE_INT);
 		$type=filter_input(INPUT_POST, 'type', FILTER_SANITIZE_SPECIAL_CHARS);
 		
 		$model=model::getInstance();
-		$res=$model->newUserStatus($id, $type);
+		$res=$model->newUserType($_SESSION['usersid'], $type);
 		header("Location: ./?{$_SERVER['QUERY_STRING']}");
 	}
-	
+	public function lock()
+	{
+		$status=filter_input(INPUT_POST, 'newstat', FILTER_SANITIZE_NUMBER_INT);
+		
+		$model=model::getInstance();
+		$res=$model->newUserStatus($_SESSION['usersid'], $status);
+		header("Location: ./?{$_SERVER['QUERY_STRING']}");
+	}
+	public function delUser()
+	{
+		$model=model::getInstance();
+		$res=$model->deleteUser($_SESSION['usersid']);
+		$_SESSION['usersid']=null;
+		header("Location: ./?{$_SERVER['QUERY_STRING']}");
+	}
 }
 ?>

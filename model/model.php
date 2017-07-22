@@ -4,21 +4,6 @@
  * 
  * Copyright 2017 -=RaM-= <psalm62@protonmail.com>
  * 
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- * 
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
- * MA 02110-1301, USA.
- * 
  * 
  */
 class model
@@ -103,8 +88,6 @@ class model
 		$stmt->execute();
 		if($row=$stmt->fetch())
 		{
-			//~ var_dump($row);
-			//~ die();
 			return $row;
 		}
 		else
@@ -263,12 +246,31 @@ class model
 			return $row;
 		}
 	}
-	public function newUserStatus($id, $type)
+	public function newUserType($id, $type)
 	{
 		$stmt=$this->dbh->prepare(
 			'UPDATE `reg_user` SET `type`=:type WHERE `id`=:id'
 		);
 		$stmt->bindValue(':type', $type);
+		$stmt->bindValue(':id', $id);
+		$stmt->execute();
+
+	}
+	public function newUserStatus($id, $status)
+	{
+		$stmt=$this->dbh->prepare(
+			'UPDATE `reg_user` SET `status`=:status WHERE `id`=:id'
+		);
+		$stmt->bindValue(':status', $status);
+		$stmt->bindValue(':id', $id);
+		$stmt->execute();
+
+	}
+	public function deleteUser($id)
+	{
+		$stmt=$this->dbh->prepare(
+			'DELETE FROM `reg_user` WHERE `id`=:id'
+		);
 		$stmt->bindValue(':id', $id);
 		$stmt->execute();
 
