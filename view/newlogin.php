@@ -27,7 +27,8 @@ class newlogin extends view
 newl;
 		if($_GET['info']==error)
 		{
-			echo "<p class='error'><i class='fa fa-times' aria-hidden='true'> Такой логин уже занят!</i></p>";
+			//echo "<p class='error'><i class='fa fa-times' aria-hidden='true'> Такой логин уже занят!</i></p>";
+			echo '<div class="alert alert-danger" role="alert"><b>Ошибка!</b> Такой логин уже занят!</div>';
 		}
 	}
 }

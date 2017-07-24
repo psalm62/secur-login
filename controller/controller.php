@@ -243,9 +243,17 @@ class controller
 		$name=filter_input(INPUT_POST, 'fio', FILTER_SANITIZE_SPECIAL_CHARS, ['options'=>['default'=>$_SESSION['id']]]);
 		$email=filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL, ['options'=>['default'=>$_SESSION['email']]]);
 		$quesh=filter_input(INPUT_POST, 'quesion', FILTER_SANITIZE_SPECIAL_CHARS);
-		
+		//$userid=filter_input(INPUT_POST, 'iserid', FILTER_SANITIZE_NUMBER_INT, ['options'=>['default'=>$_SESSION['id']]]);
+		if(SESSION['id']!==null)
+		{
+			$id=$_SESSION['id'];
+		}
+		else
+		{
+			$id=0;
+		}
 		$model=model::getInstance();
-		$res=$model->sendSupport($name, $email, $quesh);
+		$res=$model->sendSupport($name, $email, $quesh, $id);
 		if($res!==false)
 		{
 			if($_SESSION['type'])
@@ -317,24 +325,38 @@ class controller
 	public function sendType()
 	{
 		$type=filter_input(INPUT_POST, 'type', FILTER_SANITIZE_SPECIAL_CHARS);
-		
+		$user=filter_input(INPUT_POST, 'useri', FILTER_SANITIZE_NUMBER_INT);
+		//~ var_dump($type, $user);
+		//~ die();
 		$model=model::getInstance();
-		$res=$model->newUserType($_SESSION['usersid'], $type);
+		$res=$model->newUserType($user, $type);
 		header("Location: ./?{$_SERVER['QUERY_STRING']}");
 	}
 	public function lock()
 	{
 		$status=filter_input(INPUT_POST, 'newstat', FILTER_SANITIZE_NUMBER_INT);
+		$user=filter_input(INPUT_POST, 'useri', FILTER_SANITIZE_NUMBER_INT);
 		
 		$model=model::getInstance();
-		$res=$model->newUserStatus($_SESSION['usersid'], $status);
+		$res=$model->newUserStatus($user, $status);
 		header("Location: ./?{$_SERVER['QUERY_STRING']}");
 	}
 	public function delUser()
 	{
+		$user=filter_input(INPUT_POST, 'useri', FILTER_SANITIZE_NUMBER_INT);
+
 		$model=model::getInstance();
-		$res=$model->deleteUser($_SESSION['usersid']);
-		$_SESSION['usersid']=null;
+		$res=$model->deleteUser($user);
+		$_SESSION['s_login']=null;
+		//$_SESSION['s_email']=null;
+		header("Location: ./?{$_SERVER['QUERY_STRING']}");
+	}
+	public function delMess()
+	{
+		$id=filter_input(INPUT_POST, 'messid', FILTER_SANITIZE_NUMBER_INT);
+
+		$model=model::getInstance();
+		$res=$model->deleteMess($id);
 		header("Location: ./?{$_SERVER['QUERY_STRING']}");
 	}
 }

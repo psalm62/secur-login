@@ -45,11 +45,13 @@ class view
 	public function css()
 	{
 		echo '<link rel="stylesheet" href="css/font-awesome.min.css">';
+		echo '<link rel="stylesheet" href="css/bootstrap.min.css">';
 		echo '<link rel="stylesheet" type="text/css" href="css/style.css">';
 	}
 	public function script()
 	{
 		echo '<script src="js/jquery-3.2.1.min.js"></script>';
+		echo '<script src="js/bootstrap.min.js"></script>';
 	}
 	public function menu()
 	{

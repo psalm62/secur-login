@@ -4,18 +4,20 @@ body {
     font-size: 14px;
     font-weight: 400;
 }
-table {
+/*table {
 	margin-left: 20px;
 	margin-top: 40px;
 	border-collapse: collapse;
-}
+}*/
 th {
 	padding: 8px;
 	border: 1px solid black;
+	background: #678b8b;
 }
 td {
 	padding: 3px;
 	border: 1px solid black;
+	text-align: center;
 }
 td > form {
 	margin: 0;
@@ -147,6 +149,13 @@ ul.menu > li:hover > ul.submenu {
 	clear: both;
 	margin: 7px;
 	padding-left: 20px;
+}
+.inputVtr {
+	width: 257px;
+	height: 40px;
+	clear: both;
+	margin: 7px;
+	padding-left: 8px;
 }
 .copy {
 	position: absolute;

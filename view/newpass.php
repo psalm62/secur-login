@@ -25,7 +25,8 @@ class newpass extends view
 pass;
 		if($_GET['info']==error)
 		{
-			echo "<p class='error'><i class='fa fa-times' aria-hidden='true'> Введенные пароли не совпадают!</i></p>";
+			//echo "<p class='error'><i class='fa fa-times' aria-hidden='true'> Введенные пароли не совпадают!</i></p>";
+			echo '<div class="alert alert-danger" role="alert"><b>Ошибка!</b> Введенные пароли не совпадают!</div>';
 		}
 	}
 }

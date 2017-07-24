@@ -165,15 +165,16 @@ class model
 		
 		return $res;
 	}
-	public function sendSupport($name, $email, $quest)
+	public function sendSupport($name, $email, $quest, $id)
 	{
 		$stmt=$this->dbh->prepare(
-			'INSERT INTO `questions`(`name`,`email`,`ques`)
-			VALUES (:name, :email, :ques)'
+			'INSERT INTO `questions`(`name`,`email`,`ques`, `userid`)
+			VALUES (:name, :email, :ques, :id)'
 		);
 		$stmt->bindValue(':name', $name);
 		$stmt->bindValue(':email', $email);
 		$stmt->bindValue(':ques', $quest);
+		$stmt->bindValue(':id', $id);
 		$res=$stmt->execute();
 		
 		return $res;
@@ -220,7 +221,13 @@ class model
 	}
 	public function searchUserData($data)
 	{
-		if(count($data)==1)
+		if($data==null)
+		{
+			$stmt=$this->dbh->prepare(
+				'SELECT * FROM `reg_user`'
+			);
+		}
+		elseif(count($data)==1)
 		{
 			foreach ($data as $key => $value)
 			{
@@ -241,10 +248,12 @@ class model
 		}
 		
 		$stmt->execute();
-		if($row=$stmt->fetch())
+		while($dat=$stmt->fetch(PDO::FETCH_ASSOC))
 		{
-			return $row;
+			$row[]=$dat;
 		}
+		return $row;
+		
 	}
 	public function newUserType($id, $type)
 	{
@@ -274,6 +283,37 @@ class model
 		$stmt->bindValue(':id', $id);
 		$stmt->execute();
 
+	}
+	public function getMessages($id)
+	{
+		if($id==null)
+		{
+			$stmt=$this->dbh->prepare(
+				'SELECT * FROM `questions`'
+			);
+		}
+		else
+		{
+			$stmt=$this->dbh->prepare(
+				'SELECT * FROM `questions` WHERE `userid`=:id'
+			);
+			$stmt->bindValue(':id', $id);
+		}
+		$stmt->execute();
+				
+		while($dat=$stmt->fetch(PDO::FETCH_ASSOC))
+		{
+			$data[]=$dat;
+		}
+		return $data;
+	}
+	public function deleteMess($id)
+	{
+		$stmt=$this->dbh->prepare(
+			'DELETE FROM `questions` WHERE `id`=:id'
+		);
+		$stmt->bindValue(':id', $id);
+		$stmt->execute();
 	}
 }
 ?>

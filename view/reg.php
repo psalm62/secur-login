@@ -31,7 +31,7 @@ class reg extends view
 				<div><input class='inputV' type='password' name='pass2' placeholder='Повторите пароль' required></div>
 				<div><button class='buttonV'>Регистрация</button></div>
 			</form>
-			<div class='inputVt'><a class='aHelp' id='visHelp' href='#'>Помощь</a>      <a class='aReg' href='?page=login'>Войти в систему</a></div>
+			<div class='inputVtr'><a class='aHelp' id='visHelp' href='#'>Помощь</a>      <a class='aReg' href='?page=login'>Войти в систему</a></div>
 <?php
 			if($_GET['info']==err)
 			{
