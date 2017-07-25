@@ -15,12 +15,10 @@ class support extends view
 <?php
 				if($_GET['info']==ok)
 				{
-					//echo '<div style="margin: 25px;font-size: 16px;color:green"><i class="fa fa-check" aria-hidden="true"> Ваше сообщение отправлено!</i></div>';
 					echo '<div class="alert alert-success" role="alert"><i class="fa fa-check" aria-hidden="true"> Ваше сообщение отправлено!</i></div>';
 				}
 				if($_GET['info']==error)
 				{
-					//echo '<div style="margin: 25px;font-size: 16px;color:red"><i class="fa fa-times" aria-hidden="true"> Отправка не удалась.Попробуйте позже.</i></div>';
 					echo '<div class="alert alert-danger" role="alert"><i class="fa fa-check" aria-hidden="true"> Отправка не удалась.Попробуйте позже.</i></div>';
 
 				}

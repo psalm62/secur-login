@@ -17,7 +17,6 @@ class admin extends view
 	{
 		if($_GET['info']==ok)
 		{
-			//echo "<p style='font-size:16px;color:green;margin-left:20px'><i class='fa fa-check' aria-hidden='true'> Пароль успешно изменен</i></p>";
 			echo '<div class="alert alert-success alert-dismissible" role="alert">
 			<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
 			<strong>Отлично!</strong> Пароль успешно изменен.

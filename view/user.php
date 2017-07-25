@@ -29,7 +29,6 @@ class user extends view
 		}
 		if($_GET['info']==mess)
 		{
-			//echo "<p style='font-size:16px;color:green;margin-left:20px'><i class='fa fa-check' aria-hidden='true'> Ваше сообщение отправлено</i></p>";
 			echo '<div class="alert alert-success" role="alert"><i class="fa fa-check" aria-hidden="true"> Ваше сообщение отправлено!</i></div>';
 		}
 		if($_GET['info']==oklogin)

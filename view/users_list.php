@@ -102,7 +102,7 @@ SEARCH;
 		}
 		
 		echo "<table class='table'><tr><th><i class='fa fa-user-o'> Логин</i></th><th><i class='fa fa-at'> Электронная почта</i>
-</th><th><i class='fa fa-square-o'> Уровень доступа</i></th><th><i class='fa fa-lock'> Доступ в систему</i></th><th><i class='fa fa-user-times'> Другие действия</i></th></tr>";
+			</th><th><i class='fa fa-square-o'> Уровень доступа</i></th><th><i class='fa fa-lock'> Доступ в систему</i></th><th><i class='fa fa-user-times'> Другие действия</i></th></tr>";
 		foreach($dataall as $row)
 		{
 			echo "<tr>";		

@@ -104,7 +104,7 @@ class controller
 			}
 			if($info['count']==5 )// блокируем на 15 минут
 			{
-				$timer=strtotime($info['time'])+900;
+				$timer=strtotime($info['time'])+900; // 900 сек = 15 мин.
 				$date = new DateTime();
 				$date->getTimestamp();
 				if($timer>$date)

@@ -33,7 +33,7 @@ class model
 		}
 		return self::$instance;
 	}
-	public function testUser($login, $pass)
+	public function testUser($login, $pass) // авторизация пользователя в системе
 	{
 		$stmt=$this->dbh->prepare(
 			"SELECT * FROM `reg_user` WHERE `login`=:login"
@@ -50,7 +50,7 @@ class model
 			return false;
 		}
 	}
-	public function regUser($login, $pass, $email, $iv)
+	public function regUser($login, $pass, $email, $iv) // регистрация нового пользователя
 	{
 		$stmt=$this->dbh->prepare(
 			'INSERT INTO `reg_user`(`login`,`pass`,`email`,`iv`)
@@ -64,7 +64,7 @@ class model
 		
 		return $res;
 	}
-	public function getLogin($email)
+	public function getLogin($email) // получение утеряного логина по запросу его восстановления 
 	{
 		$stmt=$this->dbh->prepare(
 			'SELECT `login` FROM `reg_user` WHERE `email`=:email'
@@ -80,7 +80,7 @@ class model
 			return false;	
 		}
 	}
-	public function getDataForSendCode($login)
+	public function getDataForSendCode($login) // получение данных для отправки кода восстановления пароля
 	{
 		$stmt=$this->dbh->prepare(
 			'SELECT `email`,`id` FROM `reg_user` WHERE `login`=:login'
@@ -96,7 +96,7 @@ class model
 			return false;	
 		}
 	}
-	public function writeCodeBase($cod, $id)
+	public function writeCodeBase($cod, $id) // созранеине кода для восстановления пароля
 	{
 		$stmt=$this->dbh->prepare(
 			'SELECT * FROM `recovery` 
@@ -123,7 +123,7 @@ class model
 		
 		return $res;
 	}
-	public function getIdOnCode($code)
+	public function getIdOnCode($code) // получение кода для восстановления пароля
 	{
 		$stmt=$this->dbh->prepare(
 			'SELECT `id` FROM `recovery` WHERE `code`=:code'
@@ -153,7 +153,7 @@ class model
 			return false;	
 		}
 	}
-	public function newPass($id, $pass)
+	public function newPass($id, $pass) // изменение пароля 
 	{
 		$stmt=$this->dbh->prepare(
 			'UPDATE `reg_user`
@@ -166,7 +166,7 @@ class model
 		
 		return $res;
 	}
-	public function sendSupport($name, $email, $quest, $id)
+	public function sendSupport($name, $email, $quest, $id) // отправка сообщения от пользователя админу
 	{
 		$stmt=$this->dbh->prepare(
 			'INSERT INTO `questions`(`name`,`email`,`ques`, `userid`)
@@ -180,7 +180,7 @@ class model
 		
 		return $res;
 	}
-	public function getLoginCount($hash)
+	public function getLoginCount($hash) // получение количества попыток неправильного ввода данных для входа
 	{
 		$stmt=$this->dbh->prepare(
 			'SELECT `count`,`time` FROM `dostup` WHERE `hash`=:hash'
@@ -190,7 +190,7 @@ class model
 		$row=$stmt->fetch();
 		return $row;
 	}
-	public function createLoginCount($count, $hash, $login)
+	public function createLoginCount($count, $hash, $login) // первая попытка неправильного ввода данных для входа
 	{
 		$stmt=$this->dbh->prepare(
 			'INSERT INTO `dostup`(`count`,`hash`,`login`)
@@ -201,7 +201,7 @@ class model
 		$stmt->bindValue(':login', $login);
 		$stmt->execute();
 	}
-	public function updateLoginCount($hash, $count)
+	public function updateLoginCount($hash, $count) // счет попыток неправильного ввода данных для входа
 	{
 		$stmt=$this->dbh->prepare(
 			'UPDATE `dostup` SET `count`=:count
@@ -211,7 +211,7 @@ class model
 		$stmt->bindValue(':count', $count);
 		$stmt->execute();
 	}
-	public function delLoginCount($login)
+	public function delLoginCount($login) // удаление счета попыток неправильного ввода данных для входа
 	{
 		$stmt=$this->dbh->prepare(
 			'DELETE FROM `dostup` WHERE `login`=:login'
@@ -219,7 +219,7 @@ class model
 		$stmt->bindValue(':login', $login);
 		$stmt->execute();
 	}
-	public function testNewLogin($login)
+	public function testNewLogin($login) // проверка логина на доступность (свободный или занят)
 	{
 		$stmt=$this->dbh->prepare(
 			'SELECT * FROM `reg_user` WHERE `login`=:login'
@@ -233,7 +233,7 @@ class model
 		
 		
 	}
-	public function createNewLogin($id, $login)
+	public function createNewLogin($id, $login) // изменение логина 
 	{
 		$stmt=$this->dbh->prepare(
 			'UPDATE `reg_user`
@@ -246,7 +246,7 @@ class model
 		
 		return $res;
 	}
-	public function createNewEmail($id, $email)
+	public function createNewEmail($id, $email)  // изменение адреса электронной почты
 	{
 		$stmt=$this->dbh->prepare(
 			'UPDATE `reg_user`
@@ -259,7 +259,7 @@ class model
 		
 		return $res;
 	}
-	public function searchUserData($data)
+	public function searchUserData($data)  // получение списка пользователей по поиску
 	{
 		if($data==null)
 		{
@@ -295,7 +295,7 @@ class model
 		return $row;
 		
 	}
-	public function newUserType($id, $type)
+	public function newUserType($id, $type) // изменяет тип учетной записи между admin и user
 	{
 		$stmt=$this->dbh->prepare(
 			'UPDATE `reg_user` SET `type`=:type WHERE `id`=:id'
@@ -305,7 +305,7 @@ class model
 		$stmt->execute();
 
 	}
-	public function newUserStatus($id, $status)
+	public function newUserStatus($id, $status)  // устанавливает статус блокировки админом, вручную
 	{
 		$stmt=$this->dbh->prepare(
 			'UPDATE `reg_user` SET `status`=:status WHERE `id`=:id'
@@ -315,7 +315,7 @@ class model
 		$stmt->execute();
 
 	}
-	public function deleteUser($id)
+	public function deleteUser($id) // удаление пользователей
 	{
 		$stmt=$this->dbh->prepare(
 			'DELETE FROM `reg_user` WHERE `id`=:id'
@@ -324,7 +324,7 @@ class model
 		$stmt->execute();
 
 	}
-	public function getMessages($id)
+	public function getMessages($id) // получение пользовательских сообщений
 	{
 		if($id==null)
 		{
@@ -347,7 +347,7 @@ class model
 		}
 		return $data;
 	}
-	public function deleteMess($id)
+	public function deleteMess($id) // удаление сообщений пользователей
 	{
 		$stmt=$this->dbh->prepare(
 			'DELETE FROM `questions` WHERE `id`=:id'

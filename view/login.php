@@ -34,17 +34,14 @@ class login extends view
 			}
 			if($_GET['info'] ==error)
 			{
-				//echo "<p class='errorpass'><i class='fa fa-times' aria-hidden='true'> Неверный логин или пароль!</i></p>";
 				echo '<div class="alert alert-danger" role="alert"><strong>Неверный</strong> логин или пароль!</div>';
 			}
 			if($_GET['info'] ==err)
 			{
-				//echo "<p class='errorpass'><i class='fa fa-times' aria-hidden='true'> Этот логин заблокирован!</i></p>";
 				echo '<div class="alert alert-danger" role="alert">Этот логин <strong>заблокирован!</strong></div>';
 			}
 			if($_GET['info'] ==errtime)
 			{
-				//echo "<p class='errorpass'><i class='fa fa-times' aria-hidden='true'> Этот логин заблокирован!</i></p>";
 				echo '<div class="alert alert-danger" role="alert">Вы <strong>заблокированы на 15 мин!</strong></div>';
 			}
 ?>
