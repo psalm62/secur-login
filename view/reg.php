@@ -29,6 +29,7 @@ class reg extends view
 				<div><input class='inputV' type='email' name='email' placeholder='Введите Email' required></div>
 				<div><input class='inputV' type='password' name='pass1' placeholder='Введите пароль' required></div>
 				<div><input class='inputV' type='password' name='pass2' placeholder='Повторите пароль' required></div>
+				<div class="g-recaptcha" data-sitekey="6LeOQCoUAAAAAOwoWkwtc3DVlYAWoBbG4sE4RaTA"></div>
 				<div><button class='buttonV'>Регистрация</button></div>
 			</form>
 			<div class='inputVtr'><a class='aHelp' id='visHelp' href='#'>Помощь</a>      <a class='aReg' href='?page=login'>Войти в систему</a></div>
@@ -44,6 +45,10 @@ class reg extends view
 			if($_GET['info']==errlogin)
 			{
 				echo "<p class='errorpass'>Логин занят!</p>";
+			}
+			if($_GET['info']==errcaptcha)
+			{
+				echo '<div class="alert alert-danger" role="alert"><strong>Ошибка!</strong> подтвердите каптчу!</div>';
 			}
 ?>
 		</div>

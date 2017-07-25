@@ -14,6 +14,8 @@ class user extends view
 	}
 	public function all()
 	{
+		var_dump($_SERVER['HTTP_COOKIE']);
+
 		//~ if($_GET['info']==ok)
 		//~ {
 			//~ echo "<p style='font-size:16px;color:green;margin-left:20px'><i class='fa fa-check' aria-hidden='true'> Пароль успешно изменен</i></p>";

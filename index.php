@@ -12,6 +12,7 @@
 //~ чтобы нельзя было получить доступ к config.php напрямую
 define('testPage', 1);
 
+require_once('recaptchalib.php');
 require_once('config.php');
 require_once('view/view.php');
 require_once('controller/controller.php');

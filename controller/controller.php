@@ -69,69 +69,142 @@ class controller
 		
 		$model=model::getInstance();
 		$row=$model->testUser($c_login, $passw);
+
+		//$hashcode= браузер + опер.система + локальное имя пользователя + логин(или не надо);
+		$hashcode=openssl_encrypt($login, $dbA, $_SERVER['HTTP_USER_AGENT'], OPENSSL_RAW_DATA, $dbGlobalIv);
+			
+		//  получаем сколько раз был введен направильный пароль или логин
+		//  и во сколько последний раз
+		$info=$model->getLoginCount($hashcode);
 		
 		if($row===false)
 		{
+			
+			
+			
+			// не верный ввод ПЕРВЫЙ раз
+			if($info===false)
+			{
+				$newrow=$model->createLoginCount($count=1, $hashcode, $login);
+			}
+			
+			// не верный ввод ВТОРОЙ раз
+			if($info['count']==1)
+			{
+				$model->updateLoginCount($hashcode, $info=2);
+			}
+			
+			// не верный ввод ТРЕТИЙ раз и далее до 5
+			if($info['count']>=2 && $info['count']<5)
+			{
+				$count=$info['count'];
+				$count++;
+				$model->updateLoginCount($hashcode, $count);
+				$_SESSION['count']=$count;
+			}
+			if($info['count']==5 )// блокируем на 15 минут
+			{
+				$timer=strtotime($info['time'])+900;
+				$date = new DateTime();
+				$date->getTimestamp();
+				if($timer>$date)
+				{
+					header('Location: ./?page=login&info=errtime');
+					die();
+				}
+				$model->updateLoginCount($hashcode, $count=3);
+			}
 			header('Location: ./?page=login&info=error');
 			die();
 		}
-		elseif($row['status']==1)
+		if($row['status']==1)
 		{
 			header("Location: ./?page=login&info=err");
 			die();
 		}
-		else
+		if($info['count']==5)
 		{
-			session_unset('count');
-			$_SESSION['id']=$row['id'];
-			$_SESSION['email']=openssl_decrypt($row['email'], $dbA, $dbClobalKey, OPENSSL_RAW_DATA, $dbGlobalIv);
-			$_SESSION['type']=$row['type'];			
-
-			header("Location: ./?page={$_SESSION['type']}");
+			
+			$timer=strtotime($info['time'])+900;
+			$date = new DateTime();
+			$nowdate=$date->getTimestamp();
+			if($timer>$nowdate)
+			{
+				header('Location: ./?page=login&info=errtime');
+				die();
+			}
 		}
+		unset($_SESSION['count']);
+		$model->delLoginCount($login);
+		$_SESSION['id']=$row['id'];
+		$_SESSION['email']=openssl_decrypt($row['email'], $dbA, $dbClobalKey, OPENSSL_RAW_DATA, $dbGlobalIv);
+		$_SESSION['type']=$row['type'];			
+
+		header("Location: ./?page={$_SESSION['type']}");
+		
 	}
 	public function regUser()
 	{
 		global $dbA, $dbClobalKey, $dbGlobalIv;
 		
-		$login=filter_input(INPUT_POST, 'login', FILTER_SANITIZE_SPECIAL_CHARS);
-		$passw=filter_input(INPUT_POST, 'pass1', FILTER_SANITIZE_SPECIAL_CHARS);
-		$email=filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
+		$secret="6LeOQCoUAAAAABcXrVDKuehH5J0iAWoH6zWhqi9X";
+		$response=null;
+		$remoteip=$_SERVER["REMOTE_ADDR"];
 		
-		if(empty($login) || empty($passw) || empty($email))
-		{
-			header('Location: ./?page=reg&info=err');
-			die();
-		}
-		if($_POST['pass1']!=$_POST['pass2'])
-		{
-			header('Location: ./?page=reg&info=errpass');
-			die();
-		}
-				
-		$c_login=openssl_encrypt($login, $dbA, $dbClobalKey, OPENSSL_RAW_DATA, $dbGlobalIv);
+		$reCaptcha = new ReCaptcha($secret);
 		
-		$model=model::getInstance();
-		$res=$model->testNewLogin($c_login);
-		if($res)
+		if ($_POST["g-recaptcha-response"]) 
 		{
-			header('Location: ./?page=reg&info=errlogin');
-			die();
+			$response = $reCaptcha->verifyResponse($_SERVER["REMOTE_ADDR"], $_POST["g-recaptcha-response"]);
 		}
-		
-		$c_email=openssl_encrypt($email, $dbA, $dbClobalKey, OPENSSL_RAW_DATA, $dbGlobalIv);
-		$c_passw=password_hash($passw, PASSWORD_BCRYPT, ['cost'=>12]);
-		$ivsize=openssl_cipher_iv_length($dbA);
-		$iv=openssl_random_pseudo_bytes($ivsize);
-		
-		$res=$model->regUser($c_login, $c_passw, $c_email, $iv);
-		if($res!==false)
+		if ($response != null && $response->success) 
 		{
-			header('Location: ./?page=login');
+			//echo "Hi " . $_POST["name"] . " (" . $_POST["email"] . "), thanks for submitting the form!";
+		
+			$login=filter_input(INPUT_POST, 'login', FILTER_SANITIZE_SPECIAL_CHARS);
+			$passw=filter_input(INPUT_POST, 'pass1', FILTER_SANITIZE_SPECIAL_CHARS);
+			$email=filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
+			
+			if(empty($login) || empty($passw) || empty($email))
+			{
+				header('Location: ./?page=reg&info=err');
+				die();
+			}
+			if($_POST['pass1']!=$_POST['pass2'])
+			{
+				header('Location: ./?page=reg&info=errpass');
+				die();
+			}
+					
+			$c_login=openssl_encrypt($login, $dbA, $dbClobalKey, OPENSSL_RAW_DATA, $dbGlobalIv);
+			
+			$model=model::getInstance();
+			$res=$model->testNewLogin($c_login);
+			if($res)
+			{
+				header('Location: ./?page=reg&info=errlogin');
+				die();
+			}
+			
+			$c_email=openssl_encrypt($email, $dbA, $dbClobalKey, OPENSSL_RAW_DATA, $dbGlobalIv);
+			$c_passw=password_hash($passw, PASSWORD_BCRYPT, ['cost'=>12]);
+			$ivsize=openssl_cipher_iv_length($dbA);
+			$iv=openssl_random_pseudo_bytes($ivsize);
+			
+			$res=$model->regUser($c_login, $c_passw, $c_email, $iv);
+			if($res!==false)
+			{
+				header('Location: ./?page=login');
+			}
+			else
+			{
+				echo "Не получилось зарегистрировать пользователя";
+				die();
+			}
 		}
-		else
+		else 
 		{
-			echo "Не получилось зарегистрировать пользователя";
+			header('Location: ./?page=reg&info=errcaptcha');
 			die();
 		}
 	}

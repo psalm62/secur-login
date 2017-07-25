@@ -52,6 +52,7 @@ class view
 	{
 		echo '<script src="js/jquery-3.2.1.min.js"></script>';
 		echo '<script src="js/bootstrap.min.js"></script>';
+		echo "<script src='https://www.google.com/recaptcha/api.js'></script>";
 	}
 	public function menu()
 	{

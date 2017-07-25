@@ -46,6 +46,7 @@ class model
 		}
 		else
 		{
+			
 			return false;
 		}
 	}
@@ -178,6 +179,45 @@ class model
 		$res=$stmt->execute();
 		
 		return $res;
+	}
+	public function getLoginCount($hash)
+	{
+		$stmt=$this->dbh->prepare(
+			'SELECT `count`,`time` FROM `dostup` WHERE `hash`=:hash'
+		);
+		$stmt->bindValue(':hash', $hash);
+		$stmt->execute();
+		$row=$stmt->fetch();
+		return $row;
+	}
+	public function createLoginCount($count, $hash, $login)
+	{
+		$stmt=$this->dbh->prepare(
+			'INSERT INTO `dostup`(`count`,`hash`,`login`)
+			VALUES (:count, :hash, :login)'
+		);
+		$stmt->bindValue(':count', $count);
+		$stmt->bindValue(':hash', $hash);
+		$stmt->bindValue(':login', $login);
+		$stmt->execute();
+	}
+	public function updateLoginCount($hash, $count)
+	{
+		$stmt=$this->dbh->prepare(
+			'UPDATE `dostup` SET `count`=:count
+			WHERE `hash`=:hash'
+		);
+		$stmt->bindValue(':hash', $hash);
+		$stmt->bindValue(':count', $count);
+		$stmt->execute();
+	}
+	public function delLoginCount($login)
+	{
+		$stmt=$this->dbh->prepare(
+			'DELETE FROM `dostup` WHERE `login`=:login'
+		);
+		$stmt->bindValue(':login', $login);
+		$stmt->execute();
 	}
 	public function testNewLogin($login)
 	{

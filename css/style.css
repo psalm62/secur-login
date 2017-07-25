@@ -113,6 +113,7 @@ ul.menu > li:hover > ul.submenu {
     text-transform: uppercase;
     font-size: 16px;
     font-weight: bold;
+    margin-left: 26px;
 }
 .buttonV:hover {
 		background-color: #8286c5;
@@ -132,6 +133,7 @@ ul.menu > li:hover > ul.submenu {
 	padding-left: 20px;
 	background: rgba(255, 255, 255, 0.1) none repeat scroll 0 0;
     border-color: #dfdfdf;
+    margin-left: 26px;
 }
 .inputT {
 	/*width: 250px;
@@ -149,6 +151,7 @@ ul.menu > li:hover > ul.submenu {
 	clear: both;
 	margin: 7px;
 	padding-left: 20px;
+	margin-left: 24px;
 }
 .inputVtr {
 	width: 257px;
@@ -156,6 +159,7 @@ ul.menu > li:hover > ul.submenu {
 	clear: both;
 	margin: 7px;
 	padding-left: 8px;
+	margin-left: 23px;
 }
 .copy {
 	position: absolute;
@@ -172,7 +176,7 @@ ul.menu > li:hover > ul.submenu {
     margin-bottom: 2rem;
     margin-top: 8rem;
     min-height: 350px;
-    padding: 30px 45px 0;
+    padding: 30px 26px 0;
     max-width: 100%;
     width: 355px;
     position: absolute;

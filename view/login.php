@@ -42,12 +42,23 @@ class login extends view
 				//echo "<p class='errorpass'><i class='fa fa-times' aria-hidden='true'> Этот логин заблокирован!</i></p>";
 				echo '<div class="alert alert-danger" role="alert">Этот логин <strong>заблокирован!</strong></div>';
 			}
+			if($_GET['info'] ==errtime)
+			{
+				//echo "<p class='errorpass'><i class='fa fa-times' aria-hidden='true'> Этот логин заблокирован!</i></p>";
+				echo '<div class="alert alert-danger" role="alert">Вы <strong>заблокированы на 15 мин!</strong></div>';
+			}
 ?>
 			<p class='textForm'><i class="fa fa-user" aria-hidden="true"> Логин пользователя</i><p>
 			<form method='POST'>
 				<input type='hidden' name='nameCtr' value='testLogin'>
 				<div><input class='inputV' type='text' name='login' placeholder='Введите логин' required></div>
 				<div><input class='inputV' type='password' name='pass' placeholder='Введите пароль' required></div>
+<?php
+				if($_SESSION['count']>=3)
+				{
+					echo '<div class="g-recaptcha" data-sitekey="6LeOQCoUAAAAAOwoWkwtc3DVlYAWoBbG4sE4RaTA"></div>';
+				}
+?>
 				<div><button class='buttonV'>Вход</button></div>
 			</form>
 			<div class='inputVt'><a class='aHelp' id='visHelp' href='#'>Помощь</a>      <a class='aReg' href='?page=reg'>Регистрация</a></div>
@@ -61,6 +72,12 @@ class login extends view
 			</div>
 		</div>
 <?php	
+		}
+		static function testLoginCount()
+		{
+			$model=model::getInstance();
+			$num=$model->getLoginCount($_SERVER['REMOTE_ADDR']);
+			return $num;
 		}
 }
 ?>
